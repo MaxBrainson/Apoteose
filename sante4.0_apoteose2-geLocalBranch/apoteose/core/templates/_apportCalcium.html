@@ -1,0 +1,495 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background-color: #E0F7FA;">
+        <div class="modal-header">
+            <h2 class="modal-title " id="calciumModal">Calcul des Apports Calciques Quotidiens</h2>
+        </div>
+
+        <div class="modal-body">
+            <div style="display: flex; justify-content: center;">
+                <div style="width: 80%;">
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 80%;">1 - Buvez-vous du lait tous les jours?</span>
+                        </div>
+                        <div class="form-row under" style="margin-top: 6px;">
+                            <span class="diagnostic-form-span under-secondary" style="margin-left: 12px; width: 100%;">Si oui, combien en buvez-vous par jour?
+                            </span>
+
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest1_jour_tasses.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest1_jour_tasses.label }}</label>
+
+                            {{ form.quest1_jour_tasses.errors }}
+                            {{ form.quest1_jour_tasses }}
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest1_jour_bols.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest1_jour_bols.label }}</label>
+
+                            {{ form.quest1_jour_bols.errors }}
+                            {{ form.quest1_jour_bols }}
+                        </div>
+
+                        <div class="form-row under">
+                            <span class="diagnostic-form-span under-secondary" style="margin-left: 12px; width: 100%;">Si oui, combien en buvez-vous par semaine? </span>
+
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest1_semaine_tasses.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest1_semaine_tasses.label }}</label>
+
+                            {{ form.quest1_semaine_tasses.errors }}
+                            {{ form.quest1_semaine_tasses }}
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest1_semaine_bols.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest1_semaine_bols.label }}</label>
+
+                            {{ form.quest1_semaine_bols.errors }}
+                            {{ form.quest1_semaine_bols }}
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">2- Mangez-vous des yaourts ou des crèmes dessert?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest2_semaine.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest2_semaine.label }}</label>
+
+                            {{ form.quest2_semaine.errors }}
+                            {{ form.quest2_semaine }}
+                        </div>
+                    </section>  
+                    
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">3- Mangez-vous du fromage blanc?</span>
+                        </div>
+                        <div class="form-row under" style="margin-top: 6px;">
+                            <span class="diagnostic-form-span under-secondary" style="margin-left: 12px; width: 100%;">Si oui:</span>
+
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest3_100_semaine.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest3_100_semaine.label }}</label>
+
+                            {{ form.quest3_100_semaine.errors }}
+                            {{ form.quest3_100_semaine }}
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest3_500_semaine.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest3_500_semaine.label }}</label>
+
+                            {{ form.quest3_500_semaine.errors }}
+                            {{ form.quest3_500_semaine }}
+                        </div>
+
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest3_1000_semaine.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest3_1000_semaine.label }}</label>
+
+                            {{ form.quest3_1000_semaine.errors }}
+                            {{ form.quest3_1000_semaine }}
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">4- Mangez-vous des petits suisses?</span>
+                        </div>
+                        <div class="form-row under" style="margin-top: 6px;">
+                            <span class="diagnostic-form-span under-secondary" style="margin-left: 12px; width: 100%;">Si oui:</span>
+
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest4_petit_semaine.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest4_petit_semaine.label }}</label>
+
+                            {{ form.quest4_petit_semaine.errors }}
+                            {{ form.quest4_petit_semaine }}
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest4_grands_semaine.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest4_grands_semaine.label }}</label>
+
+                            {{ form.quest4_grands_semaine.errors }}
+                            {{ form.quest4_grands_semaine }}
+                        </div>
+
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">5- Mangez-vous du fromage à pate dure?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest5_fromage_fois_semaine.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest5_fromage_fois_semaine.label }}</label>
+
+                            {{ form.quest5_fromage_fois_semaine.errors }}
+                            {{ form.quest5_fromage_fois_semaine }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Vos portions sont-elles :</span>
+                            {% for radio in form.quest5_fromage_portions_semaine %}
+                            <div class="radio-options" style="text-align: center; text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section> 
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">6- Mangez-vous du fromage à pate molle?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest6_fromage_fois_semaine.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest6_fromage_fois_semaine.label }}</label>
+
+                            {{ form.quest6_fromage_fois_semaine.errors }}
+                            {{ form.quest6_fromage_fois_semaine }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Vos portions sont-elles :</span>
+                            {% for radio in form.quest6_fromage_portions_semaine %}
+                            <div class="radio-options" style="text-align: center;text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section> 
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">7- Mangez vous de la viande (charcuterie comprise) ou du poisson tous les jours?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest7_fois_jour.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest7_fois_jour.label }}</label>
+
+                            {{ form.quest7_fois_jour.errors }}
+                            {{ form.quest7_fois_jour }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Vos portions sont-elles :</span>
+                            {% for radio in form.quest7_portions_jour %}
+                            <div class="radio-options" style="text-align: center;text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest7_fois_semaine.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest7_fois_semaine.label }}</label>
+
+                            {{ form.quest7_fois_semaine.errors }}
+                            {{ form.quest7_fois_semaine }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Vos portions sont-elles :</span>
+                            {% for radio in form.quest7_portions_semaine %}
+                            <div class="radio-options" style="text-align: center;text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section> 
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">8- Combien d'oeufs mangez vous en moyenne par semaine ?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px; justify-content: end;">
+                            {{ form.quest8_semaine.errors }}
+                            {{ form.quest8_semaine }}
+                        </div>
+                    </section> 
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">9- Combien de fois mangez-vous des pommes de terre par semaine?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px; justify-content: end;">
+                            {{ form.quest9_semaine.errors }}
+                            {{ form.quest9_semaine }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Vos portions sont-elles :</span>
+                            {% for radio in form.quest9_portions_semaine %}
+                            <div class="radio-options" style="text-align: center;text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section> 
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">10- Combien de fois mangez-vous des frites par semaine?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px; justify-content: end;">
+                            {{ form.quest10_semaine.errors }}
+                            {{ form.quest10_semaine }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Vos portions sont-elles :</span>
+                            {% for radio in form.quest10_portions_semaine %}
+                            <div class="radio-options" style="text-align: center;text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section> 
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">11- Combien de fois mangez-vous des pâtes ou de la semoule par semaine?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px; justify-content: end;">
+                            {{ form.quest11_semaine.errors }}
+                            {{ form.quest11_semaine }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Vos portions sont-elles :</span>
+                            {% for radio in form.quest11_portions_semaine %}
+                            <div class="radio-options" style="text-align: center;text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section> 
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">12- Combien de fois mangez-vous des légumes secs (lentilles, haricots secs, pois chiches...) par semaine?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px; justify-content: end;">
+                            {{ form.quest12_semaine.errors }}
+                            {{ form.quest12_semaine }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Vos portions sont-elles :</span>
+                            {% for radio in form.quest12_portions_semaine %}
+                            <div class="radio-options" style="text-align: center;text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section> 
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">13- Combien de fois mangez-vous des légumes verts (potages compris) par semaine?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px; justify-content: end;">
+                            {{ form.quest13_semaine.errors }}
+                            {{ form.quest13_semaine }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Vos portions sont-elles :</span>
+                            {% for radio in form.quest13_portions_semaine %}
+                            <div class="radio-options" style="text-align: center;text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">14- Quelle quantité de pain mangez-vous en moyenne par jour?</span>
+                        </div>
+                        <div class="form-row under" style="margin-top: 6px;">
+                            <span class="diagnostic-form-span under-secondary" style="margin-left: 12px; width: 100%;">Si oui:</span>
+
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest14_ficelles_jour.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest14_ficelles_jour.label }}</label>
+
+                            {{ form.quest14_ficelles_jour.errors }}
+                            {{ form.quest14_ficelles_jour }}
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest14_baguettes_jour.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest14_baguettes_jour.label }}</label>
+
+                            {{ form.quest14_baguettes_jour.errors }}
+                            {{ form.quest14_baguettes_jour }}
+                        </div>
+
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest14_biscottes_jour.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest14_biscottes_jour.label }}</label>
+
+                            {{ form.quest14_biscottes_jour.errors }}
+                            {{ form.quest14_biscottes_jour }}
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">15- Combien mangez-vous de fruits par semaine?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px; justify-content: end;">
+                            {{ form.quest15_semaine.errors }}
+                            {{ form.quest15_semaine }}
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">16- Mangez-vous du chocolat au lait (ou blanc) dans la semaine?</span>
+                        </div>
+                        <div class="form-row under" style="margin-top: 6px;">
+                            <span class="diagnostic-form-span under-secondary" style="margin-left: 12px; width: 100%;">Si oui:</span>
+
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest16_barres_semaine.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest16_barres_semaine.label }}</label>
+
+                            {{ form.quest16_barres_semaine.errors }}
+                            {{ form.quest16_barres_semaine }}
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest16_tablettes_semaine.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest16_tablettes_semaine.label }}</label>
+
+                            {{ form.quest16_tablettes_semaine.errors }}
+                            {{ form.quest16_tablettes_semaine }}
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">17- Mangez-vous du chocolat noir dans la semaine?</span>
+                        </div>
+                        <div class="form-row under" style="margin-top: 6px;">
+                            <span class="diagnostic-form-span under-secondary" style="margin-left: 12px; width: 100%;">Si oui:</span>
+
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest17_barres_semaine.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest17_barres_semaine.label }}</label>
+
+                            {{ form.quest17_barres_semaine.errors }}
+                            {{ form.quest17_barres_semaine }}
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest17_tablettes_semaine.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest17_tablettes_semaine.label }}</label>
+
+                            {{ form.quest17_tablettes_semaine.errors }}
+                            {{ form.quest17_tablettes_semaine }}
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">18- Quelle quantité d'eau du robinet buvez-vous par jour?</span>
+                        </div>
+                        <div class="form-row under" style="margin-top: 6px;">
+                            <span class="diagnostic-form-span under-secondary" style="margin-left: 12px; width: 100%;">Si oui:</span>
+
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest18_verres_jour.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest18_verres_jour.label }}</label>
+
+                            {{ form.quest18_verres_jour.errors }}
+                            {{ form.quest18_verres_jour }}
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest18_litres_jour.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest18_litres_jour.label }}</label>
+
+                            {{ form.quest18_litres_jour.errors }}
+                            {{ form.quest18_litres_jour }}
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">19- Buvez-vous de l'eau minérale?</span>
+                        </div>
+                        <div class="form-row under" style="margin-top: 6px;">
+                            <span class="diagnostic-form-span under-secondary" style="margin-left: 12px; width: 100%;">Si oui:</span>
+
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest19_verres_jour.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest19_verres_jour.label }}</label>
+
+                            {{ form.quest19_verres_jour.errors }}
+                            {{ form.quest19_verres_jour }}
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary" for="{{ form.quest19_litres_jour.id_for_label }}" style="font-weight: lighter; margin-left: 48px;">{{ form.quest19_litres_jour.label }}</label>
+
+                            {{ form.quest19_litres_jour.errors }}
+                            {{ form.quest19_litres_jour }}
+                        </div>
+                        <div class="form-row" style="display: ruby-base;">
+                            <span class="diagnostic-form-label under-secondary" style="font-weight: lighter; margin-left: 48px;">Laquelle buvez vous le plus souvent ?</span>
+                        </div>
+                        <div style="display: flex;">
+                            {% for radio in form.quest19_laquelle %}
+                            <div class="radio-options" style="text-align: center; margin: 0 6px;">
+                                {{ radio.errors }}
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="form-row">
+                            <span class="diagnostic-form-span" style="width: 100%;">20- Buvez-vous chaque jour : vin, bière, cidre, ou jus de fruits?</span>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                            <label class="diagnostic-form-label under-secondary"
+                                for="{{ form.quest20_chaque_jour.id_for_label }}"
+                                style="font-weight: lighter; margin-left: 48px;">{{ form.quest20_chaque_jour.label }}</label>
+
+                            {{ form.quest20_chaque_jour.errors }}
+                            {{ form.quest20_chaque_jour }}
+                        </div>
+                    </section>                     
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="form-buttons">
+                <input type="button" id="btn-claire-calcium" class="form-btn btn-grey" value="Retourner" style="margin: 0 12px;" data-bs-dismiss="modal">
+                <input type="button" id="btn-save-calcium" class="form-btn" value="Sauvegarder"data-bs-dismiss="modal">
+            </div>
+        </div>
+    </div>
+</div>

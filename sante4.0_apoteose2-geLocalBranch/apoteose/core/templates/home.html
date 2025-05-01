@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Apoteose - Home {% endblock title %}
+
+{% block content %}
+<div class="container">
+
+   
+    
+    <div class="login-inst-logo">
+        <img src="{% static 'img/LogoApoteose.svg' %}" alt="Apotose" class="logo-home">
+    </div>
+
+    <div class="home-container">
+        <div class="home-buttons-container">
+            <a class="main-btn home" href="{% url 'form' %}"><i class="bi bi-clipboard2-pulse"></i>Nouveau Diagnostic</a>
+            <a class="main-btn home btn-grey"><i class="bi bi-people"></i>Patients</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

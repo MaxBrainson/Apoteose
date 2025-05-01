@@ -1,0 +1,9 @@
+django>=5.2
+python-decouple>=3.8
+django-test-without-migrations>=0.6
+dj-database-url>=2.3.0
+dj-static>=0.0.6
+python-dateutil>=2.8.2
+Pillow>=10.2.0
+reportlab>=4.1.0
+xhtml2pdf>=0.2.15 

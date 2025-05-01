@@ -1,0 +1,80 @@
+
+.container-lg {
+    padding: 24px;
+}
+
+.title-centralized {
+    text-align: center;
+    margin: 8px 0;
+}
+
+p {
+    font-size: 12px;
+}
+
+ul {
+    font-size: 12px;
+    margin-left: 35px;
+}
+
+h5 {
+    font-weight: 600;
+}
+
+hr {
+    border: 2px solid black;
+    opacity: 1;
+}
+
+.hr-dashed {
+    width: 100%;
+    border: 1px dashed black;
+}
+
+.hr-footer {
+    border: 2px solid black;
+    margin-bottom: 1rem;
+}
+
+.footer {
+    text-align: center;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    
+}
+
+.footer img {
+    width: 90px;
+}
+
+.table {
+    font-size: 10px;
+    width: 50%;
+    border: 1px solid black;
+}
+
+.header, .header-space {
+    height: 130px;
+    width: 100%;
+}
+
+.footer-space {
+    height: 110px;
+    width: 100%;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+}
+
+.header-space {
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+}

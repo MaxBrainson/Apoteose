@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Diagnostic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+
+    <style type="text/css">
+      @page {
+        size: a4 portrait;
+        margin: 2cm;
+      }
+
+      .container-lg {
+          padding: 24px;
+      }
+
+      .title-centralized {
+          text-align: center;
+          margin: 8px 0;
+      }
+
+      p {
+          font-size: 12px;
+      }
+
+      ul {
+          font-size: 12px;
+          margin-left: 35px;
+      }
+
+      h5 {
+          font-weight: 600;
+      }
+
+      hr {
+          border: 2px solid black;
+          opacity: 1;
+      }
+
+      .hr-dashed {
+          width: 100%;
+          border: 1px dashed black;
+      }
+
+      .hr-footer {
+          border: 2px solid black;
+          margin-bottom: 1rem;
+      }
+
+      .footer {
+          text-align: center;
+          justify-content: space-between;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          height: 100px;
+          
+      }
+
+      .footer img {
+          width: 90px;
+      }
+
+      .table {
+          font-size: 10px;
+          width: 50%;
+          border: 1px solid black;
+      }
+
+      .header, .header-space {
+          height: 130px;
+          width: 100%;
+      }
+
+      .footer-space {
+          height: 110px;
+          width: 100%;
+      }
+
+      .header {
+          position: fixed;
+          top: 0;
+      }
+
+      .header-space {
+          margin-bottom: 10px;
+      }
+
+      table {
+          width: 100%;
+      }
+    </style>
+
+  
+  </head>
+
+
+  <body>
+
+    <!-- PAGE 1 -->
+    
+    <div class="header-space" id="header_content">
+            <section class="header">
+              <div class="row justify-content-center">
+                <div class="col-lg-12 justify-content-center">
+                  <div class="title-centralized">
+                    <h5>CH CORBEIL - OSTEODENSITOMETRIE </h5>
+                    <h5>116 Boulevard Jean Jaurès 91100 CORBEIL ESSONS</h5>
+                    <h5>Service Rhummatologie du Dr Hilliquin</h5>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </section>
+          </div>
+
+      <div class="footer-space" id="footer_content">
+            <section class="footer">
+              <hr class="hr-footer">
+
+              <div class="row">
+                <div class="col-3">
+                  <p><b>Rapport établi par:</b> <br> {{ created_at }}</p>
+                </div>
+                
+                <div class="col-6">
+                  <p class=""><b>Où:</b> <br> 116 Jean Jaurès Boulevard, 91100 Corbeil-Essonnes</p>
+                </div>
+
+                <div class="col-2">
+                  <img src="/home/geovana/Documents/apoteoseV2/apoteose/core/static/img/LogoHopitalpng.png"> 
+                </div>
+                
+              </div>
+            </section>
+          </div>
+
+
+      <table>
+        <thead><tr><td>
+          
+        </td></tr></thead>
+
+        <tbody><tr><td>
+          <div class="content">
+            <section>
+              <div class="row justify-content-center">
+                <div class="title-centralized">
+                  <h5>Rapport d'Analyze de la Composition Corporelle</h5>
+                </div>
+              </div>
+        
+              <div class="row">
+                <div class="col">
+                  <p><b>Nom:</b> {{ prenom }} {{ nom }}</p>
+                  <p><b>ID du Patient:</b> {{ id }}</p>
+                  <p><b>Médecin Traitant:</b> {{ doctor }}</p>
+                </div>
+        
+                <div class="col">
+                  <p><b>Sexe:</b> {{ sexe }}</p>
+                  <p><b>Date de Naissance:</b> {{ date_naissance }}</p>
+                  <p><b>Âge:</b> {{ age }}</p>
+                </div>
+                
+                <div class="col">
+                  <p><b>Taille:</b> {{ taille }} cm</p>
+                  <p><b>Poids:</b> {{ poids }} kg</p>
+                  <p><b>IMC:</b> {{ imc }}</p>
+                </div>
+              </div>
+            </section>
+        
+            <hr>
+        
+            <section>
+              <div class="row">
+                <div class="title-centralized">
+                  <h5>Résultats</h5>
+                </div>
+              </div>
+        
+              <p>Patient de sexe {{ sexe }} de âge {{ age }} ans.</p>
+        
+              <div class="row">
+                <div class="col">
+                  <h6><b>Mode de vie</b></h6>
+                  <p>{{ tabagisme }} Tabagique.</p>
+                  <p>{{ alcool }} Consommation excessive d'alcool (plus de 3 verres par jour).</p>
+                  <p>{{ activite_phsique }} Activité physique régulière.</p>
+                  <p>{{ Calc }}</p>
+                  <p>{{ vitamine_d }} Supplémentation en vintamine D.</p>
+                </div>
+                
+                <div class="col">
+                  <h6><b>Antécédents Fracturaires</b></h6>
+                  <p>{{ antecedent_fracture_faible_energie }} Antécédent de fracture de faible énergie. {{ Plus }}</p>
+                  <p>{{ fracture_fragilite_femoral }} Fracture de fragilité du col fémoral chez un parent du premier degré.</p>
+                  <p>{{ chutes_frequentes }} Chutes à répétition.</p>
+                </div>
+              </div>
+        
+              <div class="row">
+                <p><b>{{ NoYesPath }}</b></p>
+              </div>
+        
+              <div class="row">
+                <p>{{ PathAsso }}</p>
+              </div>
+              
+              <div class="row">
+                <p><b>{{ NoInduct }} Autres traitements inducteurs de l'ostéoporose</b></p>
+              </div>
+              
+              <div class="row">
+                <p>{{ Iducteurs }}</p>
+              </div>
+              
+              <div class="row">
+                <p><b>{{ NoTraitSpe }} Traitement spécifique de l'ostéoporose {{ TraiSpe }}</b></p>
+              </div>
+              
+              <div class="row">
+                <p><b>{{ Cortico }} Corticothérapie pour plus de 3 mois ou reçu depuis au moins 3 mois {{ PlusDe }}</b></p>
+              </div>
+              
+              <div class="row">
+                <p><b>FRAX: {{ frax }}</b></p>
+              </div>
+        
+              <div class="row">
+                <p><b>Informations Complémentaires</b></p>
+                <p>{{ information_complementaires }}</p>
+              </div>
+            </section>
+          </div>
+        </td></tr></tbody>
+
+        <tfoot><tr><td>
+          
+        </td></tr></tfoot>
+      </table>
+    
+
+
+    <!-- PAGE 2 -->
+    
+      <table>
+        <thead><tr><td>
+         
+        
+        </td></tr></thead>
+
+        <tbody><tr><td>
+          <div class="content">
+            <section>
+              <div class="row justify-content-center">
+                <div class="title-centralized">
+                  <h5>Densitométrie Osseuse</h5>
+                </div>
+              </div>
+        
+              <div class="row justify-content-center">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Région</th>
+                      <th scope="col">{{ Score }}</th>
+                      <th scope="col">Classification OMS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Rachis AP (L1-L4)</th>
+                      <td>{{ z_score_rachis }}</td>
+                      <td>{{ RachisClass }}</td>
+                    </tr>
+        
+                    <tr>
+                      <th scope="row">Col du Fémur </th>
+                      <td>{{ z_score_col_femur }}</td>
+                      <td>{{ FemurClass }}</td>
+                    </tr>
+        
+                    <tr>
+                      <th scope="row">Hanche Totale</th>
+                      <td>{{ z_score_hache }}</td>
+                      <td>{{ HancheClass }}</td>
+                    </tr>
+        
+                    <tr>
+                      <th scope="row">Distal Radius</th>
+                      <td>{{ z_score_extremite_distale }}</td>
+                      <td>{{ DistalClass }}</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+      
+                <div class="row" style="margin-top: 15px;">
+                  <p>Les critères d'interprétation de DMO de l'Organisation mondiale de la santé classent les patients comme</p>
+                  <ul>
+                    <li>Normaux: {{ Score }} supérieur ou égual à -1.0</li>
+                    <li>Ostéopéniques: {{ Score }} entre -1.0 et -2.5</li>
+                    <li>Ostéoporotiques: {{ Score }} inférieur ou égual à -2.5</li>
+                  </ul>
+                </div>
+              </div>
+      
+            </section>
+      
+            <hr>
+      
+            <section>
+              <div class="row justify-content-center">
+                <div class="title-centralized">
+                  <h5>Synthése</h5>
+                </div>
+              </div>
+      
+              <div class="row">
+                <p>{{ Diagnose }} {{ Control }} </p>
+              </div>
+      
+              <div class="row">
+                <p>{{ PathDiagnose }}</p>
+              </div>
+      
+              <div class="row">
+                <p>{{ Traitement }}</p>
+              </div>
+              
+              <div class="row">
+                <p><b>{{ InfoTraitement }}</b> {{ Hyperpa }}</p>
+              </div>
+              
+              <br>
+              
+              <div class="row">
+                <p><b>Source:</b> {{ ListOfReview }}</p>
+              </div>
+      
+            </section>
+          </div>
+          
+        </td></tr></tbody>
+
+        <tfoot><tr><td>
+          
+        </td></tr></tfoot>
+      </table>
+    
+
+
+    <!-- PAGE 3 -->
+    
+      <table>
+        <thead><tr><td>
+          
+        </td></tr></thead>
+
+        <tbody><tr><td>
+          <div class="content">
+            <section>
+              <div class="row justify-content-center">
+                <div class="title-centralized">
+                  <h5>Traitement Information</h5>
+                </div>
+              </div>
+        
+              <div class="row">
+                <p><b>{{ PhraseTraitement }}</b></p>
+              </div>
+
+              <div class="row">
+                <p>{{ AdviseTraitement }}</p>
+              </div>
+
+              <hr class="hr-dashed">
+    
+              <div class="row" style="margin-top: 15px;">
+                <p><b>{{ AdviseGeneral }}</b></p>
+              </div>
+
+              <div class="row">
+                <p>{{ Advise }}</p>
+              </div>
+
+              <div class="row">
+                <p>{{ PossibleVitD }}</p>
+              </div>
+      
+              <div class="row">
+                <p>{{ DiagnoseCalcium }}</p>
+              </div>
+      
+            </section>
+          </div>
+        </td></tr></tbody>
+
+        
+        <tfoot><tr><td>
+          
+        </td></tr></tfoot>
+      </table>
+    
+    
+
+    
+
+    
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  </body>
+</html> 

@@ -1,0 +1,1322 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Diagnosis Form {% endblock title %}
+
+{% block style %}
+<style>
+    body {background: linear-gradient(to bottom, #b2ebf2, #beeef4, #caf1f6, #d5f4f8, #e0f7fa);
+          background-size: cover;
+          background-repeat: no-repeat;
+          min-height: 100%;}
+
+    html {
+        min-height: 100%;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    * {
+        font-size: 14px;
+    }
+</style>
+{% endblock style %}
+
+{% block content%}
+
+
+    
+<section class="section-forms">
+
+    <form action="." method="POST" class="diagnostic-form" id="diagnosisForm">
+    
+        {% csrf_token %}
+        {{ form.errors }}
+        {{ form.non_field_errors }}
+
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert success">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="popup-container">
+            <div class="popup" id="popup-cancer-sein">
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.analogue_lh_rh.id_for_label }}">Analogue de LH-RH</label>
+                    {% for radio in form.analogue_lh_rh %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.tamoxifene.id_for_label }}">Tamoxiféne</label>
+                    {% for radio in form.tamoxifene %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.horm_anastrazole.id_for_label }}">Horm Anastrazole</label>
+                    {% for radio in form.horm_anastrazole %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.horm_letrozole.id_for_label }}">Horm Letrozole</label>
+                    {% for radio in form.horm_letrozole %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.horm_exemestane.id_for_label }}">Horm Exemestane</label>
+                    {% for radio in form.horm_exemestane %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.amenorrhee_induite.id_for_label }}">Amenorrhee Induite</label>
+                    {% for radio in form.amenorrhee_induite %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-buttons">
+                    <input type="button" id="btn-claire" class="form-btn btn-grey" value="Retourner" onclick="cancelPopUps('id_cancer_sein_0', 'popup-cancer-sein', ...['id_analogue_lh_rh_0', 'id_tamoxifene_0', 'id_horm_anastrazole_0', 'id_horm_letrozole_0', 'id_horm_exemestane_0', 'id_amenorrhee_induite_0']);">
+                    <input type="button" id="btn-save-cancer-sein" class="form-btn" value="Sauvegarder" onclick="savePopUp('popup-cancer-sein');">
+                </div>
+            </div>
+            <div class="popup" id="popup-cancer-prostate">
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.3_comorbites_associees.id_for_label }}">3 Comorbités Associées</label>
+                    {% for radio in form.comorbites_associees %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.castraction_chirurgiale.id_for_label }}">Castraction Chirurgiale ou Chimique</label>
+                    {% for radio in form.castraction_chirurgiale %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row checkbox">
+                    <label class="diagnostic-form-label" for="{{ form.frax_cancer.id_for_label }}">{{ form.frax_cancer.label }}</label>
+                    {{ form.frax_cancer.errors }}
+                    {{ form.frax_cancer }}
+                </div>
+
+                <div class="form-buttons">
+                    <input type="button" id="btn-claire" class="form-btn btn-grey" value="Retourner" onclick="cancelPopUps('id_cancer_prostate_0', 'popup-cancer-prostate', ...['id_comorbites_associees_0', 'id_castraction_chirurgiale_0', 'id_frax_cancer']);">
+                    <input type="button" id="btn-save-cancer" class="form-btn" value="Sauvegarder" onclick="savePopUp('popup-cancer-prostate');">
+                </div>
+            </div>
+            <div class="popup" id="popup-z-score">
+                <div class="form-row checkbox">
+                    {% for radio in form.z_score_femur_popup %}
+                    <div class="radio-options-checkbox">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                    <label class="diagnostic-form-span" for="{{ form.z_score_femur_popup.id_for_label }}">Z Score Col Fémur</label>
+                </div>
+                <div class="form-row checkbox">
+                    {% for radio in form.z_score_hanche_popup %}
+                    <div class="radio-options-checkbox">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                    <label class="diagnostic-form-span" for="{{ form.z_score_hanche_popup.id_for_label }}">Z Score Hanche Totale</label>
+                </div>
+                <div class="form-row checkbox">
+                    {% for radio in form.z_score_rachis_popup %}
+                    <div class="radio-options-checkbox">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                    <label class="diagnostic-form-span" for="{{ form.z_score_rachis_popup.id_for_label }}">Z Score Rachis</label>
+                </div>
+                <div class="form-row checkbox">
+                    {% for radio in form.z_score_extremite_popup %}
+                    <div class="radio-options-checkbox">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                    <label class="diagnostic-form-span" for="{{ form.z_score_extremite_popup.id_for_label }}">Z Score Èxtremité Distale dy Radious</label>
+                </div>
+
+                <div class="form-buttons">
+                    <input type="button" id="btn-claire" class="form-btn btn-grey" value="Retourner" onclick="cancelPopUps('id_z_score_extremite_distale_0', 'popup-z-score', ...['id_z_score_femur_popup', 'id_z_score_hanche_popup', 'id_z_score_rachis_popup', 'id_z_score_extremite_popup']);">
+                    <input type="button" id="btn-save-dxa" class="form-btn" value="Sauvegarder" onclick="savePopUp('popup-z-score');">
+                </div>
+            </div>
+
+            <div class="popup" id="popup-t-score">
+                <div class="form-row checkbox">
+                    <label class="diagnostic-form-span">T Score Col Fémur</label>
+                    <div class="radio-options-checkbox">
+                        <input type="checkbox" name="t_score_femur_popup" id="id_t_score_femur_popup" class="radio-options-label checkbox">
+                    </div>
+                </div>
+                <div class="form-row checkbox">
+                    <label class="diagnostic-form-span">T Score Hanche Totale</label>
+                    <div class="radio-options-checkbox">
+                        <input type="checkbox" name="t_score_hanche_popup" id="id_t_score_hanche_popup" class="radio-options-label">
+                    </div>
+                </div>
+                <div class="form-row checkbox">
+                    <label class="diagnostic-form-span">T Score Rachis</label>
+                    <div class="radio-options-checkbox">
+                        <input type="checkbox" name="t_score_rachis_popup" id="id_t_score_rachis_popup" class="radio-options-label">
+                    </div>
+                </div>
+                <div class="form-row checkbox">
+                    <label class="diagnostic-form-span">T Score Èxtremité Distale du Radius</label>
+                    <div class="radio-options-checkbox">
+                        <input type="checkbox" name="t_score_extremite_popup" id="id_t_score_extremite_popup" class="radio-options-label">
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <input type="button" id="btn-claire" class="form-btn btn-grey" value="Retourner" onclick="cancelPopUps('id_t_score_extremite_distale_0', 'popup-t-score', ...['id_t_score_femur_popup', 'id_t_score_hanche_popup', 'id_t_score_rachis_popup', 'id_t_score_extremite_popup']);">
+                    <input type="button" id="btn-save-dxa-t" class="form-btn" value="Sauvegarder" onclick="savePopUp('popup-t-score');">
+                </div>
+            </div>
+
+            <div class="popup" id="popup-traitements">
+                <legend>Traitements Passés</legend>
+                <br>
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Supplementation en Vitamine D</span>
+                    {% for radio in form.vitamine_d %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Supplementation en Calcium</span>
+                    {% for radio in form.supplem_calcium %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="dose-journaliere-hidden">
+                    <label class="diagnostic-form-label under" for="{{ form.dose_calcium_journaliere.id_for_label }}">{{ form.dose_calcium_journaliere.label }}</label>
+                    {{ form.dose_calcium_journaliere.errors }}
+                    {{ form.dose_calcium_journaliere }}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Traitement Spécifique Actuel de l'ostéoporose</span>
+                    {% for radio in form.traitement_osteo %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="traitement-menopause-hidden">
+                    <span class="diagnostic-form-span under">Traitement Substitutif de la Ménopause</span>
+                    {% for radio in form.traitement_subs_menopause %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- DATE INIT/END -->
+                <div class="form-row hidden" id="traitement-menopause-init-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_menopause_init_date.id_for_label }}">{{ form.traitement_menopause_init_date.label }}</label>
+                    {{ form.traitement_menopause_init_date.errors }}
+                    {{ form.traitement_menopause_init_date }}
+                </div>
+
+                <div class="form-row hidden" id="traitement-menopause-end-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_menopause_end_date.id_for_label }}">{{ form.traitement_menopause_end_date.label }}</label>
+                    {{ form.traitement_menopause_end_date.errors }}
+                    {{ form.traitement_menopause_end_date }}
+                </div>
+
+                <!--  -->
+
+                <div class="form-row hidden" id="traitement-raloxifene-hidden">
+                    <span class="diagnostic-form-span under">Traitement par Raloxifene</span>
+                    {% for radio in form.traitement_raloxifene %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- DATE INIT/END -->
+                <div class="form-row hidden" id="traitement-raloxifene-init-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_raloxifene_init_date.id_for_label }}">{{ form.traitement_raloxifene_init_date.label }}</label>
+                    {{ form.traitement_raloxifene_init_date.errors }}
+                    {{ form.traitement_raloxifene_init_date }}
+                </div>
+
+                <div class="form-row hidden" id="traitement-raloxifene-end-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_raloxifene_end_date.id_for_label }}">{{ form.traitement_raloxifene_end_date.label }}</label>
+                    {{ form.traitement_raloxifene_end_date.errors }}
+                    {{ form.traitement_raloxifene_end_date }}
+                </div>
+
+                <!--  -->
+
+                <div class="form-row hidden" id="traitement-bisphosphonates-hidden">
+                    <span class="diagnostic-form-span under">Traitement par Bisphosphonates</span>
+                    {% for radio in form.traitement_bisphosphonates %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                
+                <div class="form-row hidden" id="traitement-risedronate-hidden">
+                    <span class="diagnostic-form-span under" style="font-size: 15px; margin-left: 24px;"> <b>Residronate</b></span>
+                    {% for radio in form.traitement_risedronate %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- DATE INIT/END -->
+                <div class="form-row hidden" id="traitement-risedronate-init-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_risedronate_init_date.id_for_label }}">{{ form.traitement_risedronate_init_date.label }}</label>
+                    {{ form.traitement_risedronate_init_date.errors }}
+                    {{ form.traitement_risedronate_init_date }}
+                </div>
+
+                <div class="form-row hidden" id="traitement-risedronate-end-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_risedronate_end_date.id_for_label }}">{{ form.traitement_risedronate_end_date.label }}</label>
+                    {{ form.traitement_risedronate_end_date.errors }}
+                    {{ form.traitement_risedronate_end_date }}
+                </div>
+
+                <!--  -->
+
+
+                <div class="form-row hidden" id="traitement-aledronate-hidden">
+                    <span class="diagnostic-form-span under" style="font-size: 15px; margin-left: 24px;"> <b>Aledronate</b></span>
+                    {% for radio in form.traitement_aledronate %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- DATE INIT/END -->
+                <div class="form-row hidden" id="traitement-aledronate-init-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_aledronate_init_date.id_for_label }}">{{ form.traitement_aledronate_init_date.label }}</label>
+                    {{ form.traitement_aledronate_init_date.errors }}
+                    {{ form.traitement_aledronate_init_date }}
+                </div>
+
+                <div class="form-row hidden" id="traitement-aledronate-end-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_aledronate_end_date.id_for_label }}">{{ form.traitement_aledronate_end_date.label }}</label>
+                    {{ form.traitement_aledronate_end_date.errors }}
+                    {{ form.traitement_aledronate_end_date }}
+                </div>
+
+                <!--  -->
+
+                <div class="form-row hidden" id="traitement-acide-zoledronique-hidden"><span class="diagnostic-form-span under" style="font-size: 15px; margin-left: 24px;"><b>Acide Zoledronique</b></span>
+                    {% for radio in form.traitement_acide_zoledronique %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- DATE INIT/END -->
+                <div class="form-row hidden" id="traitement-acide-zoledronique-init-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_acide_zoledronique_init_date.id_for_label }}">{{ form.traitement_acide_zoledronique_init_date.label }}</label>
+                    {{ form.traitement_acide_zoledronique_init_date.errors }}
+                    {{ form.traitement_acide_zoledronique_init_date }}
+                </div>
+
+                <div class="form-row hidden" id="traitement-acide-zoledronique-end-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_acide_zoledronique_end_date.id_for_label }}">{{ form.traitement_acide_zoledronique_end_date.label }}</label>
+                    {{ form.traitement_acide_zoledronique_end_date.errors }}
+                    {{ form.traitement_acide_zoledronique_end_date }}
+                </div>
+
+                <!--  -->
+
+                <div class="form-row hidden" id="traitement-denosumab-hidden">
+                    <span class="diagnostic-form-span under">Traitement par Dénosumab</span>
+                    {% for radio in form.traitement_denosumab %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- DATE INIT/END -->
+                <div class="form-row hidden" id="traitement-denosumab-init-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_denosumab_init_date.id_for_label }}">{{ form.traitement_denosumab_init_date.label }}</label>
+                    {{ form.traitement_denosumab_init_date.errors }}
+                    {{ form.traitement_denosumab_init_date }}
+                </div>
+
+                <div class="form-row hidden" id="traitement-denosumab-end-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_denosumab_end_date.id_for_label }}">{{ form.traitement_denosumab_end_date.label }}</label>
+                    {{ form.traitement_denosumab_end_date.errors }}
+                    {{ form.traitement_denosumab_end_date }}
+                </div>
+
+                <!--  -->
+
+                <div class="form-row hidden" id="traitement-teriparatide-hidden">
+                    <span class="diagnostic-form-span under">Traitement par Tériparatide</span>
+                    {% for radio in form.traitement_teriparatide %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- DATE INIT/END -->
+                <div class="form-row hidden" id="traitement-teriparatide-init-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_teriparatide_init_date.id_for_label }}">{{ form.traitement_teriparatide_init_date.label }}</label>
+                    {{ form.traitement_teriparatide_init_date.errors }}
+                    {{ form.traitement_teriparatide_init_date }}
+                </div>
+
+                <div class="form-row hidden" id="traitement-teriparatide-end-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_teriparatide_end_date.id_for_label }}">{{ form.traitement_teriparatide_end_date.label }}</label>
+                    {{ form.traitement_teriparatide_end_date.errors }}
+                    {{ form.traitement_teriparatide_end_date }}
+                </div>
+
+                <!--  -->
+
+                <div class="form-row hidden" id="traitement-bonne-obs-hidden">
+                    <span class="diagnostic-form-span under">Bonne Observance au Traitement Anti-Ostéoporotique</span>
+                    {% for radio in form.bonne_observance %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- DATE INIT/END -->
+                <div class="form-row hidden" id="traitement-bonne-init-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_bonne_init_date.id_for_label }}">{{ form.traitement_bonne_init_date.label }}</label>
+                    {{ form.traitement_bonne_init_date.errors }}
+                    {{ form.traitement_bonne_init_date }}
+                </div>
+
+                <div class="form-row hidden" id="traitement-bonne-end-date-hidden">
+                    <label class="diagnostic-form-label under-secondary" for="{{ form.traitement_bonne_end_date.id_for_label }}">{{ form.traitement_bonne_end_date.label }}</label>
+                    {{ form.traitement_bonne_end_date.errors }}
+                    {{ form.traitement_bonne_end_date }}
+                </div>
+
+                <!--  -->
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Traitement Anti-Viral dans le Cadre d'un VIH</span>
+                    {% for radio in form.traitement_vih %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Corticotherapie</span>
+                    {% for radio in form.corticotherapie %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>   
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Hormonothérapie</span>
+                    {% for radio in form.hormonotherapie %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="form-row hidden" id="corticotherapie-plus-3-mois-hidden">
+                    <span class="diagnostic-form-span under">Prevue pour plus de 3 mois ou treçu depuis ou moins 3 mois</span>
+                    {% for radio in form.corticotherapie_plus_3 %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="corticotherapie-plus-7-5-hidden">
+                    <span class="diagnostic-form-span under">Plus de 7.5 mg/jour</span>
+                    {% for radio in form.corticotherapie_plus_7_5 %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-buttons">
+                    <input type="button" id="btn-claire" class="form-btn btn-grey" value="Retourner" onclick="cancelPopUps('btn-traitements', 'popup-traitements', ...['id_vitamine_d_0', 'id_supplem_calcium_0', 'id_traitement_osteo_0', 'id_traitement_subs_menopause_0', 'id_traitement_raloxifene_0', 'id_traitement_bisphosphonates_oraux_0', 'id_traitement_bisphosphonates_injectable_0', 'id_traitement_denosumab_0', 'id_traitement_teriparatide_0', 'id_bonne_observance_0']);">
+                    <input type="button" id="btn-save-traitements" class="form-btn" value="Sauvegarder" onclick="savePopUp('popup-traitements');">
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalCalcium" tabindex="-1" aria-labelledby="calciumModal" aria-hidden="true">
+                {% block modalCalcium%}
+                  {% include "_apportCalcium.html" %}
+                {% endblock modalCalcium%}
+            </div>
+
+
+            <div class="popup" id="popup-informations-comp">
+                <fieldset>
+                    <legend>Informations Complémentaires</legend>
+                    {{ form.information_complementaires}}
+                </fieldset>
+
+                <div class="form-buttons">
+                    <input type="button" id="btn-claire" class="form-btn btn-grey" value="Retourner" onclick="cancelPopUps('btn-diagn', 'popup-informations-comp', ...['id_information_complementaires']);">
+                    <input type="submit" id="btn-diagn-popup" class="form-btn" value="Get Diagnosis" onclick="submitDiagnosis();">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-diagnostic-column">
+            <fieldset class="fieldset-forms">
+                <legend>Informations Générales</legend>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.prenom.id_for_label }}">{{ form.prenom.label }}</label>
+                    {{ form.prenom.errors }}
+                    {{ form.prenom }}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.nom.id_for_label }}">{{ form.nom.label }}</label>
+                    {{ form.nom.errors }}
+                    {{ form.nom }}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.date_naissance.id_for_label }}">{{ form.date_naissance.label }}</label>
+                    {{ form.date_naissance.errors }}
+                    {{ form.date_naissance }}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="">Âge</label>
+                    <p id="calculated-age" onchange="checkFRAX();"></p>
+                    {{ form.age }}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Sexe</span>
+                    {% for radio in form.sexe %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="menopause-hidden">
+                    <span class="diagnostic-form-span under">Ménopausé</span>
+                    {% for radio in form.menopause %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="menopause-age-hidden">
+                    <label class="diagnostic-form-label under" for="{{ form.menopause_age.id_for_label }}">{{ form.menopause_age.label }}</label>
+                    {{ form.menopause_age.errors }}
+                    {{ form.menopause_age }}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.taille.id_for_label }}">{{ form.taille.label }}</label>
+                    {{ form.taille.errors }}
+                    {{ form.taille }}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.taille_20.id_for_label }}">{{ form.taille_20.label }}</label>
+                    {{ form.taille_20.errors }}
+                    {{ form.taille_20 }}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.poids.id_for_label }}">{{ form.poids.label }}</label>
+                    {{ form.poids.errors }}
+                    {{ form.poids }}
+                </div>
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.imc.id_for_label }}"> {{ form.imc.label }} </label>
+                    <p id="calculated-imc"></p>
+                    {{ form.imc }}
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+                <legend>Traitements Passés</legend>
+                <p>Les Traitements que vous Prenez Actuaellement</p>
+
+                <div class="form-buttons" style="justify-content: center;">
+                    <input type="button" id="btn-traitements" class="form-btn" value="Sélectionner les Traitements" onclick="document.getElementById('popup-traitements').style.visibility = 'visible';">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Apport en Calcium 
+                    <div class="tooltip"> 
+                        <i class="fa-sharp fa-regular fa-circle-question" id="tooltip-title"></i>
+                        <ul class="tooltip-text">
+                            <li>Enfants de 1 à 3 500 mg/jour</li>
+                            <li>Enfants de 4 à 6 700 mg/jour</li>
+                            <li>Enfants de 7 à 9 900 mg/jour</li>
+                            <li>Adolescent (e) de 10 à 18 ans 1200 mg/jour</li>
+                            <li>Adults (Femme et Hommes) 900 mg/jour</li>
+                            <li>Femmes de Plus de 55 ans 1200 mg/jour</li>
+                        </ul>
+                    </div>
+                </legend>
+
+                <p>Apport de calcium sur la base des informations fournies par le patient</p>
+                <div class="form-row" style="justify-content: center;">
+                    <p id="calculated-calcium-apport"></p>
+                    {{ form.apport_calcium }}
+                    {{ form.calcium_intake }}
+                </div>
+
+                <div class="form-buttons" style="justify-content: center;">
+                    <button type="button" class="form-btn" data-bs-toggle="modal" data-bs-target="#modalCalcium">Faire le test</button>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Néoplasie</legend>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Radiotherapie</span>
+                    {% for radio in form.radiotherapie %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Cancer du la Prostate</span>
+                    {% for radio in form.cancer_prostate %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Cancer du Sein</span>
+                    {% for radio in form.cancer_sein %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </fieldset>
+            
+        </div>
+
+        <div class="form-diagnostic-column" id="second-column">
+            
+            <fieldset>
+                <legend>DXA Exam
+                    <div class="tooltip"> 
+                        <i class="fa-sharp fa-regular fa-circle-question" id="tooltip-title"></i>
+                        <ul class="tooltip-text">
+                            <li>Cette valeur provient des résultats de l'examen</li>
+                        </ul>
+                    </div>
+                </legend>
+
+                <div class="form-row z-score-row">
+                    <label class="diagnostic-form-label" for="{{ form.z_score_col_femur.id_for_label }}" id="z-score-col-femur">{{ form.z_score_col_femur.label }}</label>
+                    {{ form.z_score_col_femur.errors }}
+                    {{ form.z_score_col_femur }}
+                </div>
+
+                <div class="form-row z-score-row">
+                    <label class="diagnostic-form-label" for="{{ form.z_score_hache.id_for_label }}" id="z-score-hanche-totale">{{ form.z_score_hache.label }}</label>
+                    {{ form.z_score_hache.errors }}
+                    {{ form.z_score_hache }}
+                </div>
+
+                <div class="form-row z-score-row">
+                    <label class="diagnostic-form-label" for="{{ form.z_score_rachis.id_for_label }}" id="z-score-rachis-lombaire">{{ form.z_score_rachis.label }}</label>
+                    {{ form.z_score_rachis.errors }}
+                    {{ form.z_score_rachis }}
+                </div>
+                
+                <div class="form-row z-score-row">
+                    <span class="diagnostic-form-span" id="z-score-extremite-distale">Z Score Èxtremité Distale du Radius</span>
+                    
+                    {% for radio in form.z_score_extremite_distale %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row t-score-row" style="display: none;">
+                    <label class="diagnostic-form-label" for="{{ form.t_score_col_femur.id_for_label }}">T Score Col Fémur</label>
+                    {{ form.t_score_col_femur.errors }}
+                    {{ form.t_score_col_femur }}
+                </div>
+
+                <div class="form-row t-score-row" style="display: none;">
+                    <label class="diagnostic-form-label" for="{{ form.t_score_hache.id_for_label }}">T Score Hanche Totale</label>
+                    {{ form.t_score_hache.errors }}
+                    {{ form.t_score_hache }}
+                </div>
+
+                <div class="form-row t-score-row" style="display: none;">
+                    <label class="diagnostic-form-label" for="{{ form.t_score_rachis.id_for_label }}">T Score Rachis Lombaire</label>
+                    {{ form.t_score_rachis.errors }}
+                    {{ form.t_score_rachis }}
+                </div>
+                
+                <div class="form-row t-score-row" style="display: none;">
+                    <span class="diagnostic-form-span">T Score Èxtremité Distale du Radius</span>
+                    
+                    {% for radio in form.t_score_extremite_distale %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <label class="diagnostic-form-label" for="{{ form.frax.id_for_label }}">{{ form.frax.label }}</label>
+                    {{ form.frax.errors }}
+                    {{ form.frax }}
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Habitude</legend>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Tabagisme Actif</span>
+                    {% for radio in form.tabagisme %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">
+                        <div class="tooltip"> 
+                            <i class="fa-sharp fa-regular fa-circle-question"></i>
+                            <ul class="tooltip-text">
+                                <li>Plus de 3 verres/jour</li>
+                            </ul>
+                        </div>
+                        Alcool
+                    </span>
+                    {% for radio in form.alcool %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Activité Phsique Régulière</span>
+                    {% for radio in form.activite_phsique %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="hormonotherapie-choices-hidden">
+                    <span class="diagnostic-form-span"></span>
+                    {% for radio in form.hormonotherapie_choices %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Traitement inducteur d'ostéoporose</legend>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Traitement Anti-Viral dans le Cadre d'un VIH</span>
+                    {% for radio in form.traitement_vih %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Corticotherapie</span>
+                    {% for radio in form.corticotherapie %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>   
+                
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Hormonothérapie</span>
+                    {% for radio in form.hormonotherapie %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="form-row hidden" id="corticotherapie-plus-3-mois-hidden">
+                    <span class="diagnostic-form-span under">Prevue pour plus de 3 mois ou treçu depuis ou moins 3 mois</span>
+                    {% for radio in form.corticotherapie_plus_3 %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="corticotherapie-plus-7-5-hidden">
+                    <span class="diagnostic-form-span under">Plus de 7.5 mg/jour</span>
+                    {% for radio in form.corticotherapie_plus_7_5 %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Autre info</legend>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">
+                        <div class="tooltip"> 
+                            <i class="fa-sharp fa-regular fa-circle-question"></i>
+                            <ul class="tooltip-text">
+                                <li>Plus de 3 par an</li>
+                            </ul>
+                        </div> 
+                        Chutes Fréquentes
+                    </span>
+                    {% for radio in form.chutes_frequentes %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Fracture 
+                    <div class="tooltip"> 
+                        <i class="fa-sharp fa-regular fa-circle-question" id="tooltip-title"></i>
+                        <ul class="tooltip-text">
+                            <li>Exclure les fractures trumatiques et les fractures sue os pathologique</li>
+                            <br>
+                            <br>
+                            <li>Fracture survenant spontanément ou pour un traumatisme à faible énergie, c'est-à-dire l'équivalent d'une chute de sa hauteur ou d'une hauteur maximum de 50 cm survenue à l'arrêt ou à la marche.</li>
+                            <br>
+                            <li>Les fractures par fragilité appartiennent, avec les fractures de fatigue, au groupe des fractures de contrainte, qui se distinguent des fractures traumatiques et des fractures pathologiques.</li>
+                            <br>
+                            <li>Exclues fracture du crane, des orteils, des doigts, du rachis cervical.</li>
+
+                        </ul>
+                    </div>
+                </legend>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Antécédent de Fracture de Faible Énergie</span>
+                    {% for radio in form.antecedent_fracture_faible_energie %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="fracture-severe-hidden">
+                    <span class="diagnostic-form-span under">
+                        <div class="tooltip"> 
+                            <i class="fa-sharp fa-regular fa-circle-question" id="tooltip-title"></i>
+                            <ul class="tooltip-text">
+                                <li>Sont comprises dans cette définition les fractures de l'extrémité supérieure du fémur, de vertèbre, de l'extrémité supérieure de l'humérus, du démur distal, du tibia proximal, de 3 côtes simultanées et du bassin.</li>
+                                
+                            </ul>
+                        </div>
+                        Fracture sévère
+                    </span>
+                    {% for radio in form.fracture_severe %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="fracture-deux-vertebres-hidden">
+                    <span class="diagnostic-form-span under">Fracture de deux vértebres ou plus</span>
+                    {% for radio in form.fracture_deux_vertebres %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="fracture-non-severe-hidden">
+                    <span class="diagnostic-form-span under">
+                        <div class="tooltip"> 
+                            <i class="fa-sharp fa-regular fa-circle-question" id="tooltip-title"></i>
+                            <ul class="tooltip-text">
+                                <li>Poignet, sauf crane, rachis cervical, 3 premieres vertebres dorsales, ortelis, doigts</li>
+                                
+                            </ul>
+                        </div>
+                        Fracture non sévère
+                    </span>
+                    {% for radio in form.fracture_non_severe %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="fracture-fragilite-femoral-hidden">
+                    <span class="diagnostic-form-span under">Fracture de Fragilité du Col Fémoral Chez un Parent du Premier Degré</span>
+                    {% for radio in form.fracture_fragilite_femoral %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="form-diagnostic-column">
+            <fieldset>
+                <legend>Antécédents</legend>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Endocrinopathie</span>
+                    {% for radio in form.edocrinopathie %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="hyperparathyroide-hidden">
+                    <span class="diagnostic-form-span under">Hyperparathyroïde</span>
+                    {% for radio in form.hyperparathyroide %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="hyperthyroide-hidden">
+                    <span class="diagnostic-form-span under">Hyperthyroïde</span>
+                    {% for radio in form.hyperthyroide %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="hypercorticisme-hidden">
+                    <span class="diagnostic-form-span under">Hypercorticisme</span>
+                    {% for radio in form.hypercorticisme %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="insuffisance-hypophysaire-hidden">
+                    <span class="diagnostic-form-span under">Insuffisance Hypophysaire</span>
+                    {% for radio in form.insuffisance_hypophysaire %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="hypogonadisme-hidden">
+                    <span class="diagnostic-form-span under">Hypogonadisme</span>
+                    {% for radio in form.hypogonadisme %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="diabete-type-hidden">
+                    <span class="diagnostic-form-span under">Diabete Type 1 et 2</span>
+                    {% for radio in form.diabete_type %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="anorexie-mentale-hidden">
+                    <span class="diagnostic-form-span under">Anorexie Mentale</span>
+                    {% for radio in form.anorexie_mentale %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Rhumatisme Inflammatoire Chronique</span>
+                    {% for radio in form.rhumatisme_inflammatoire %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="polyarthrite-rheumatoide-hidden">
+                    <span class="diagnostic-form-span under">Polyarthrite Rheumatoïde</span>
+                    {% for radio in form.polyarthrite_rheumatoide %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="spondylarthrite-hidden">
+                    <span class="diagnostic-form-span under">Spondylarthrite</span>
+                    {% for radio in form.spondylarthrite %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="rhumatisme-psoriasique-hidden">
+                    <span class="diagnostic-form-span under">Rhumatisme Psoriasique</span>
+                    {% for radio in form.rhumatisme_psoriasique %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="lupus-hidden">
+                    <span class="diagnostic-form-span under">Lupus Érythémateux Systémique</span>
+                    {% for radio in form.lupus %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="autres-connectivites-hidden">
+                    <span class="diagnostic-form-span under">Autres Connectivites</span>
+                    {% for radio in form.autres_connectivites %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Maladie Génétique</span>
+                    {% for radio in form.maladie_genetique %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="hemochromatose-hidden">
+                    <span class="diagnostic-form-span under">Hemochromatose</span>
+                    {% for radio in form.hemochromatose %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="mastocytose-hidden">
+                    <span class="diagnostic-form-span under">Mastocytose</span>
+                    {% for radio in form.mastocytose %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="drepanocytose-hidden">
+                    <span class="diagnostic-form-span under">Drépanocytose</span>
+                    {% for radio in form.drepanocytose %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Pathologie Intestinale/Digestive</span>
+                    {% for radio in form.pathologie_intestinale %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="maladie-crohn-hidden">
+                    <span class="diagnostic-form-span under">Maladie de Crohn</span>
+                    {% for radio in form.maladie_crohn %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="maladie-coeliaque-hidden">
+                    <span class="diagnostic-form-span under">Maladie Coeliaque</span>
+                    {% for radio in form.maladie_coeliaque %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="bypass-hidden">
+                    <span class="diagnostic-form-span under">By Pass</span>
+                    {% for radio in form.bypass %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="hepatopathie-chronique-hidden">
+                    <span class="diagnostic-form-span under">Hepatopathie Chronique</span>
+                    {% for radio in form.hepatopathie_chronique %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="rectocolite-ulcero-hidden">
+                    <span class="diagnostic-form-span under">Rectocolite Ulcéro-Hémorragique</span>
+                    {% for radio in form.rectocolite_ulcero %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row">
+                    <span class="diagnostic-form-span">Insuffisance Renale Chronique</span>
+                    {% for radio in form.insuffisance_renale %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                                                    
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-row hidden" id="clairance-inferieure-30-hidden">
+                    <span class="diagnostic-form-span under">Clairance Inférieure à 30 ml/mn</span>
+                    {% for radio in form.clairance_inferieure_30 %}
+                    <div class="radio-options">
+                        {{ radio.errors }}
+                        {{ radio }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            
+            <div class="form-buttons">
+                <input type="button" id="btn-claire" class="form-btn btn-grey" value="Retourner" onclick="claireForm();">
+                <button type="button" id="btn-diagn" class="form-btn" onclick="submitDiagnosis()">Obtenir le Diagnostic</button>
+            </div>
+        </div>
+
+    </form>
+</section>
+
+<div id="diagnosisResult" class="mt-4"></div>
+
+<script>
+function submitDiagnosis() {
+    const form = document.getElementById('diagnosisForm');
+    const formData = new FormData(form);
+    
+    // Afficher un indicateur de chargement
+    const submitButton = document.getElementById('btn-diagn');
+    submitButton.disabled = true;
+    submitButton.innerHTML = 'Génération du diagnostic...';
+    
+    fetch('/patients/diagnosis/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur réseau');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            // Afficher les résultats
+            document.getElementById('diagnosisResult').innerHTML = data.html;
+            
+            // Si un rapport PDF a été généré, mettre à jour le lien de téléchargement
+            if (data.report_path) {
+                const downloadLink = document.querySelector('#diagnosisResult a[download]');
+                if (downloadLink) {
+                    downloadLink.href = data.report_path;
+                }
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        alert('Une erreur est survenue lors de la génération du diagnostic. Veuillez réessayer.');
+    })
+    .finally(() => {
+        // Réactiver le bouton
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Obtenir le Diagnostic';
+    });
+}
+</script>
+
+{% endblock content%}

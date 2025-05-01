@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Diagnostic {{Prenom}} {{Nom}}</title>
+	<style type="text/css">
+		/* Define styles for the header and footer */
+		header, footer {
+			position: fixed;
+			left: 0;
+			right: 0;
+			color: #000;
+			padding: 10px;
+		}
+
+		header {
+			top: 0;
+		}
+
+		footer {
+			bottom: 0;
+            position: fixed;
+            width: 100%;
+            height: 100px;
+		}
+
+		/* Add some padding to the body so the content doesn't overlap with the header and footer */
+		
+
+		/* Define styles for the page number */
+		.page-number {
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<!-- Add your header content here -->
+		<section class="header">
+            <div class="row justify-content-center">
+              <div class="col-lg-12 justify-content-center">
+                <div class="title-centralized">
+                  <h5>CH CORBEIL - OSTEODENSITOMETRIE </h5>
+                  <h5>116 Boulevard Jean Jaurès 91100 CORBEIL ESSONS</h5>
+                  <h5>Service Rhummatologie du Dr Hilliquin</h5>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </section>
+	</header>
+
+	<!-- Add the content of your PDF here -->
+	<div id="content">
+		<!-- Add your PDF content here for page 1 -->
+		<div class="content">
+            <section>
+              <div class="row justify-content-center">
+                <div class="title-centralized">
+                  <h5>Rapport d'Analyze de la Composition Corporelle</h5>
+                </div>
+              </div>
+        
+              <div class="row">
+                <div class="col">
+                  <p><b>Nom:</b> {{ Prenom }} {{ Nom }}</p>
+                  <p><b>ID du Patient:</b> {{ id }}</p>
+                  <p><b>Médecin Traitant:</b> {{ Doctor }}</p>
+                </div>
+        
+                <div class="col">
+                  <p><b>Sexe:</b> {{ Sexe }}</p>
+                  <p><b>Date de Naissance:</b> {{ Date_de_Naissance }}</p>
+                  <p><b>Âge:</b> {{ Age }}</p>
+                </div>
+                
+                <div class="col">
+                  <p><b>Taille:</b> {{ Taille }} cm</p>
+                  <p><b>Poids:</b> {{ Poids }} kg</p>
+                  <p><b>IMC:</b> {{ IMC }}</p>
+                </div>
+              </div>
+            </section>
+        
+            <hr>
+        
+            <section>
+              <div class="row">
+                <div class="title-centralized">
+                  <h5>Résultats</h5>
+                </div>
+              </div>
+        
+              <p>{{ FirstSection }}</p>
+        
+              <div class="row">
+                <div class="col">
+                  <h6><b>Mode de vie</b></h6>
+                  <p>{{ Tabagisme }} Tabagique.</p>
+                  <p>{{ Alcool }} Consommation excessive d'alcool (plus de 3 verres par jour).</p>
+                  <p>{{ Activ }} Activité physique régulière.</p>
+                  <p>{{ Calc }}</p>
+                  <p>{{ VitD }} Supplémentation en vintamine D.</p>
+                </div>
+                
+                <div class="col">
+                  <h6><b>Antécédents Fracturaires</b></h6>
+                  <p>{{ Plus }} Antécédent de fracture de faible énergie. {{ Plus }}</p>
+                  <p>{{ Pare }} Fracture de fragilité du col fémoral chez un parent du premier degré.</p>
+                  <p>{{ Chut }} Chutes à répétition.</p>
+                </div>
+              </div>
+        
+              <div class="row">
+                <p><b>{{ NoYesPath }}</b></p>
+              </div>
+        
+              <div class="row">
+                <p>{{ PathAsso }}</p>
+              </div>
+              
+              <div class="row">
+                <p><b>{{ NoInduct }} Autres traitements inducteurs de l'ostéoporose</b></p>
+              </div>
+              
+              <div class="row">
+                <p>{{ Iducteurs }}</p>
+              </div>
+              
+              <div class="row">
+                <p><b>{{ NoTraitSpe }} Traitement spécifique de l'ostéoporose {{ TraiSpe }}</b></p>
+              </div>
+              
+              <div class="row">
+                <p><b>{{ Cortico }} Corticothérapie pour plus de 3 mois ou reçu depuis au moins 3 mois {{ PlusDe }}</b></p>
+              </div>
+              
+              <div class="row">
+                <p><b>FRAX: {{ Frax }}</b></p>
+              </div>
+        
+              <div class="row">
+                <p><b>Informations Complémentaires</b></p>
+                <p>{{ information_complementaires }}</p>
+              </div>
+            </section>
+          </div>
+
+          <footer>
+              <!-- Add your footer content here -->
+              <section class="footer">
+                  <hr class="hr-footer">
+      
+                  <div class="row" style="display: flex;">
+                    <div class="col-3" style="flex: 1;">
+                      <p><b>Rapport établi par:</b> <br> {{ Created_at }}</p>
+                    </div>
+                    
+                    <div class="col-6" style="flex: 1;">
+                      <p class=""><b>Où:</b> <br> 116 Jean Jaurès Boulevard, 91100 Corbeil-Essonnes</p>
+                    </div>
+      
+                    <div class="col-2" style="flex: 1;">
+                      <img src="/home/geovana/Documents/apoteoseV2/apoteose/core/static/img/LogoHopitalpng.png" style="width: 100px; height: auto;"> 
+                    </div>
+                    
+                  </div>
+              </section>
+      
+              <!-- Add the page number -->
+              <div class="page-number">
+                  Page <span class="page"></span>
+              </div>
+          </footer>
+
+		<!-- Add a page break and repeat the header and footer -->
+		<div style="page-break-before: always;"></div>
+
+		<header>
+			<!-- Add your header content here -->
+			<section class="header">
+                <div class="row justify-content-center">
+                  <div class="col-lg-12 justify-content-center">
+                    <div class="title-centralized">
+                      <h5>CH CORBEIL - OSTEODENSITOMETRIE </h5>
+                      <h5>116 Boulevard Jean Jaurès 91100 CORBEIL ESSONS</h5>
+                      <h5>Service Rhummatologie du Dr Hilliquin</h5>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+              </section>
+		</header>
+
+		<!-- Add your PDF content here for page 2 -->
+		<div class="content">
+            <section>
+              <div class="row justify-content-center">
+                <div class="title-centralized">
+                  <h5>Densitométrie Osseuse</h5>
+                </div>
+              </div>
+        
+              <div class="row justify-content-center">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Région</th>
+                      <th scope="col">{{ Score }}</th>
+                      <th scope="col">Classification OMS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Rachis AP (L1-L4)</th>
+                      <td>{{ Ranchis }}</td>
+                      <td>{{ RanchisClass }}</td>
+                    </tr>
+        
+                    <tr>
+                      <th scope="row">Col du Fémur </th>
+                      <td>{{ Femur }}</td>
+                      <td>{{ FemurClass }}</td>
+                    </tr>
+        
+                    <tr>
+                      <th scope="row">Hanche Totale</th>
+                      <td>{{ Hanche }}</td>
+                      <td>{{ HancheClass }}</td>
+                    </tr>
+        
+                    <tr>
+                      <th scope="row">Distal Radius</th>
+                      <td>{{ Radius }}</td>
+                      <td>{{ RadiusClass }}</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+      
+                <div class="row" style="margin-top: 15px;">
+                  <p>Les critères d'interprétation de DMO de l'Organisation mondiale de la santé classent les patients comme</p>
+                  <ul>
+                    <li>Normaux: {{ Score }} supérieur ou égual à -1.0</li>
+                    <li>Ostéopéniques: {{ Score }} entre -1.0 et -2.5</li>
+                    <li>Ostéoporotiques: {{ Score }} inférieur ou égual à -2.5</li>
+                  </ul>
+                </div>
+              </div>
+      
+            </section>
+      
+            <hr>
+      
+            <section>
+              <div class="row justify-content-center">
+                <div class="title-centralized">
+                  <h5>Synthése</h5>
+                </div>
+              </div>
+      
+              <div class="row">
+                <p>{{ Diagnose }} {{ Control }} </p>
+                <!-- <p>Un bilan diagnostique et pré-thérapeutique est indiqué par la réalisation d'une
+                  Numération Formule Sanguine, VS,CRP, Calcémie, Albuminémie, Phosphorémie, Phosphatases alcalines, Electrophorèse des protides, Créatininémie, Transaminases, Gamma GT, Testostérone totale et dosage de la 25OH Vitamine D</p> -->
+              </div>
+      
+              <div class="row">
+                <p>{{ Path }}</p>
+              </div>
+      
+              <div class="row">
+                <p>{{ Traitement }}</p>
+              </div>
+              
+              <div class="row">
+                <p><b>{{ InfoTrait }}</b> {{ Hyperpa }}</p>
+              </div>
+              
+              <br>
+              
+              <div class="row">
+                <p><b>Source:</b> {{ ListOfReview }}</p>
+              </div>
+      
+            </section>
+          </div>
+
+          <footer>
+              <!-- Add your footer content here -->
+              <section class="footer">
+                  <hr class="hr-footer">
+      
+                  <div class="row">
+                    <div class="col-3">
+                      <p><b>Rapport établi par:</b> <br> {{ Created_at }}</p>
+                    </div>
+                    
+                    <div class="col-6">
+                      <p class=""><b>Où:</b> <br> 116 Jean Jaurès Boulevard, 91100 Corbeil-Essonnes</p>
+                    </div>
+      
+                    <div class="col-2">
+                      <img src="/home/geovana/Documents/apoteoseV2/apoteose/core/static/img/LogoHopitalpng.png"> 
+                    </div>
+                    
+                  </div>
+              </section>
+      
+              <!-- Add the page number -->
+              <div class="page-number">
+                  Page <span class="page"></span>
+              </div>
+          </footer>
+
+		<!-- Add a page break and repeat the header and footer -->
+		<div style="page-break-before: always;"></div>
+
+		<header>
+			<!-- Add your header content here -->
+			<section class="header">
+                <div class="row justify-content-center">
+                  <div class="col-lg-12 justify-content-center">
+                    <div class="title-centralized">
+                      <h5>CH CORBEIL - OSTEODENSITOMETRIE </h5>
+                      <h5>116 Boulevard Jean Jaurès 91100 CORBEIL ESSONS</h5>
+                      <h5>Service Rhummatologie du Dr Hilliquin</h5>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+              </section>
+		</header>
+
+		<!-- Add your PDF content here for page 3 -->
+		<div class="content">
+            <section>
+              <div class="row justify-content-center">
+                <div class="title-centralized">
+                  <h5>Traitement Information</h5>
+                </div>
+              </div>
+        
+              <div class="row">
+                <p><b>{{ PhraseTraitement }}</b></p>
+              </div>
+
+              <div class="row">
+                <p>{{ AdviseTraitement }}</p>
+              </div>
+
+              <hr class="hr-dashed">
+    
+              <div class="row" style="margin-top: 15px;">
+                <p><b>{{ AdviseGeneral }}</b></p>
+              </div>
+
+              <div class="row">
+                <p>{{ Advise }}</p>
+              </div>
+
+              <div class="row">
+                <p>{{ PossibleVitD }}</p>
+              </div>
+      
+              <div class="row">
+                <p>{{ DiagnoseCalcium }}</p>
+              </div>
+      
+            </section>
+          </div>
+	</div>
+
+	<footer>
+		<!-- Add your footer content here -->
+		<section class="footer">
+            <hr class="hr-footer">
+
+            <div class="row">
+              <div class="col-3">
+                <p><b>Rapport établi par:</b> <br> {{ Created_at }}</p>
+              </div>
+              
+              <div class="col-6">
+                <p class=""><b>Où:</b> <br> 116 Jean Jaurès Boulevard, 91100 Corbeil-Essonnes</p>
+              </div>
+
+              <div class="col-2">
+                <img src="/home/geovana/Documents/apoteoseV2/apoteose/core/static/img/LogoHopitalpng.png"> 
+              </div>
+              
+            </div>
+        </section>
+
+		
+	</footer>
+
+	<!-- Include jQuery for the page number script -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Define a script to update the page number -->
+	
+</body>
+</html>
