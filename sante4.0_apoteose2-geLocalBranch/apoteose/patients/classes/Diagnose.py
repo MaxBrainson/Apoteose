@@ -384,6 +384,12 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
         PrintEvaluationMorphologique = False
         try:
             LostOfHeight = (self.Patient["taille_20"] - self.Patient["taille"])
+            try:
+                taille_20 = float(self.Patient.get("taille_20", 0))
+                taille_actuelle = float(self.Patient.get("taille", 0))
+                LostOfHeight = taille_20 - taille_actuelle
+            except (ValueError, TypeError):
+                LostOfHeight = 0 
             if LostOfHeight >= 4:
                 PrintEvaluationMorphologique = True
         except:
