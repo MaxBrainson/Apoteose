@@ -5,7 +5,11 @@ class RichText:
     """Classe fictive pour remplacer RichText de docxtpl"""
     def __init__(self, *args, **kwargs):
         self.text = ""
-    
+
+    def add(self, text):
+        self.text += text
+
+
     def __str__(self):
         return self.text
 
@@ -18,7 +22,9 @@ from apoteose.patients.classes.DecisionTree import DecisionTree
 class DiagnoseAnalysis:
     def __init__(self, arg):
         self.Patient = arg
-        self.Patient["IMClow"] = "Oui" if self.Patient["imc"] < 18 else "Non" 
+        self.TreatmentContext = {}
+        self.setTreatmentContext()
+        self.Patient["IMClow"] = "Oui" if float(self.Patient["imc"]) < 18 else "Non"
         self.DT = DecisionTree().DecisionChoice(self.Patient)
         self.Review = RichText()
         self.ListOfReview = ["+ Actualisation 2018 des recommandations françaises du traitement de l'ostéoporose post-ménopausique",
@@ -28,52 +34,50 @@ class DiagnoseAnalysis:
                     "+ Recommandations françaises de la prise en charge et du traitement de l'De masculine",
                     "+ Selon le Protocole National de Diagnostic et de Soins 2019 PNDS"     # this is for the densitometrie pediatrique
                     ]
-        
+
         self.Dictionary_possible_antecedents = {
-            'edocrinopathie': 'endocrinopathie', 
-            'hyperparathyroide': 'Hyperparathyroïde', 
-            'hyperthyroide': 'Hyperthyroïde', 
-            'hypercorticisme': 'Hypercorticisme', 
-            'insuffisance_hypophysaire': 
-            'Insuffisance hypophysaire', 
-            'hypogonadisme': 'Hypogonadisme', 
-            'diabete_type': 'Diabete type 1 et 2', 
-            'anorexie_mentale': 'Anorexie Mentale', 
+            'edocrinopathie': 'endocrinopathie',
+            'hyperparathyroide': 'Hyperparathyroïde',
+            'hyperthyroide': 'Hyperthyroïde',
+            'hypercorticisme': 'Hypercorticisme',
+            'insuffisance_hypophysaire':
+            'Insuffisance hypophysaire',
+            'hypogonadisme': 'Hypogonadisme',
+            'diabete_type': 'Diabete type 1 et 2',
+            'anorexie_mentale': 'Anorexie Mentale',
 
             #Rhumatisme Inflammatoire Chronique
             'rhumatisme_inflammatoire': 'RhumatismeInflammatoireChronique',
-            'polyarthrite_rheumatoide': 'Polyarthrite rheumatoïde', 
-            'spondylarthrite': 'Spondylarthrite', 
-            'rhumatisme_psoriasique': 'Rhumatisme psoriasique', 
-            'lupus': 'Lupus érythémateux systémique', 
-            'autres_connectivites': 'Autres connectivites', 
-            'pseudo_polyarthrite_rhizomelique': 'Pseudo Polyarthrite Rhizomélique', 
-            'arterite_cellules_geantes': 'Artérite à Cellules Géantes',
+            'polyarthrite_rheumatoide': 'Polyarthrite rheumatoïde',
+            'spondylarthrite': 'Spondylarthrite',
+            'rhumatisme_psoriasique': 'Rhumatisme psoriasique',
+            'lupus': 'Lupus érythémateux systémique',
+            'autres_connectivites': 'Autres connectivites',
 
             #Maladie Genetique
-            'maladie_genetique': 'MaladieGenetique', 
-            'hemochromatose': 'Hémochromatose', 
-            'mastocytose': 'Mastocytose', 
+            'maladie_genetique': 'MaladieGenetique',
+            'hemochromatose': 'Hémochromatose',
+            'mastocytose': 'Mastocytose',
             'drepanocytose': 'Drépanocytose',
 
             #pathologie intestinale/digestive
-            'pathologie_intestinale': 'pathologieintestinale/digestive', 
-            'maladie_crohn': 'Maladie de Crohn', 
-            'maladie_coeliaque': 'Maladie coeliaque', 
-            'bypass': 'ByPass', 
-            'hepatopathie_chronique': 'Hepatopathie chronique', 
-            'rectocolite_ulcero': 'Rectocolite ulcéro-hémorragique', 
+            'pathologie_intestinale': 'pathologieintestinale/digestive',
+            'maladie_crohn': 'Maladie de Crohn',
+            'maladie_coeliaque': 'Maladie coeliaque',
+            'bypass': 'ByPass',
+            'hepatopathie_chronique': 'Hepatopathie chronique',
+            'rectocolite_ulcero': 'Rectocolite ulcéro-hémorragique',
 
 
             #Insuffisance rénale chronique
-            'insuffisance_renale': 'Insuffisance rénale chronique', 
+            'insuffisance_renale': 'Insuffisance rénale chronique',
             'clairance_inferieure_30': 'Clairance inférieure à 30 ml/mn'
             }
-        
+
         self.Dictionary_Traitement = {
             "traitement_subs_menopause": ["Traitement substitutif de la ménopause", "traitement_subs_menopause_init_date", "traitement_subs_menopause_end_date"] ,
             "traitement_denosumab": ["Traitement par Dénosumab", "traitement_denosumab_init_date", "traitement_denosumab_end_date"] ,
-            "traitement_teriparatide": ["Traitement par Tériparatide", "traitement_teriparatide_init_date", "traitement_teriparatide_end_date"] , 
+            "traitement_teriparatide": ["Traitement par Tériparatide", "traitement_teriparatide_init_date", "traitement_teriparatide_end_date"] ,
             "traitement_raloxifene": ["Traitement par Raloxifene", "traitement_raloxifene_init_date", "traitement_raloxifene_end_date"] ,
             "traitement_risedronate": ["Risedronate", "traitement_risedronate_init_date", "traitement_risedronate_end_date"] ,
             "traitement_aledronate": ["Aledronate", "traitement_aledronate_init_date", "traitement_aledronate_end_date"] ,
@@ -83,7 +87,7 @@ class DiagnoseAnalysis:
         self.Dictionary_Traitement_Basics = {
             "supplem_calcium": "Supplementation en calcium" ,
             "vitamine_d": "Supplementation en vitamine D",
-            "traitement_bisphosphonates": "Traitement par bisphosphonates", 
+            "traitement_bisphosphonates": "Traitement par bisphosphonates",
             "traitement_osteo": "Traitement spécifique actuel de l'ostéoporose"
         }
 
@@ -139,9 +143,9 @@ class DiagnoseAnalysis:
                 self.context["FirstSection"] += " Le patient a un IMC faible."
             else:
                 self.context["FirstSection"] += " La patiente a un IMC faible."
-        
+
         if self.Patient["supplem_calcium"] == "Oui":
-            self.context["Calc"] += f"\nSupplémentation calcique de {0 if self.Patient['dose_calcium_journaliere'] == None else self.Patient['dose_calcium_journaliere']} mg/jour"  
+            self.context["Calc"] += f"\nSupplémentation calcique de {0 if self.Patient['dose_calcium_journaliere'] == None else self.Patient['dose_calcium_journaliere']} mg/jour"
         #elif self.Patient["apport_calcium"] != 0:
             #self.context["Calc"] += f"\nApport calcique journalier = " + str(self.Patient['apport_calcium']) + "mg/jour",
 
@@ -155,7 +159,7 @@ class DiagnoseAnalysis:
                 self.context["Plus"] += "\nFracture non sévère"
         else:
             self.context["Frac"] = "Pas d'"
-        
+
 
         ########### Pathologie Associées
         self.antecedentes = ["edocrinopathie", "rhumatisme_inflammatoire", "maladie_genetique", "pathologie_intestinale"]
@@ -188,7 +192,7 @@ class DiagnoseAnalysis:
 
         if self.Inducteurs == "":
             self.context["NoInduct"] = "Pas d'"
-        
+
         self.context["Inducteurs"] = self.Inducteurs
 
 
@@ -198,13 +202,13 @@ class DiagnoseAnalysis:
 
         for traitement in list(self.Dictionary_Traitement.keys())[:4]:
             if self.Patient[traitement] == "Oui":
-                self.TraitementPasse += f"\n{self.Dictionary_Traitement[traitement][0]}\t debut en {self.Patient[self.Dictionary_Traitement[traitement][1]]}\t\t fin en {self.Patient[self.Dictionary_Traitement[traitement[2]]]}" 
-                
+                self.TraitementPasse += f"\n{self.Dictionary_Traitement[traitement][0]}\t debut en {self.Patient[self.Dictionary_Traitement[traitement][1]]}\t\t fin en {self.Patient[self.Dictionary_Traitement[traitement[2]]]}"
+
         if self.Patient["traitement_bisphosphonates"] == "Oui":
             self.TraitementPasse += "\nTraitement par bisphosphonates"
             for traitement in list(self.Dictionary_Traitement.keys())[4:7]:
-                self.TraitementPasse += f"\n{self.Dictionary_Traitement[traitement][0]}\t debut en {self.Patient[self.Dictionary_Traitement[traitement][1]]:%m/%Y}\t\t fin en {self.Patient[self.Dictionary_Traitement[traitement[2]]]:%m/%Y}" 
-        
+                self.TraitementPasse += f"\n{self.Dictionary_Traitement[traitement][0]}\t debut en {self.Patient[self.Dictionary_Traitement[traitement][1]]:%m/%Y}\t\t fin en {self.Patient[self.Dictionary_Traitement[traitement[2]]]:%m/%Y}"
+
         if self.TraitementPasse == "":
             self.context["NoTraitSpe"] = "Pas de prise d'un "
 
@@ -232,7 +236,7 @@ class DiagnoseAnalysis:
         except:
             pass
 
-        
+
         ########### Information d'examen
         # if self.Patient["z_score_femur_popup"] == True:
         #     self.context["Femur"] = str(self.Patient["z_score_col_femur"])
@@ -240,21 +244,21 @@ class DiagnoseAnalysis:
         # else:
         #     self.context["Femur"] = "-"
         #     self.context["FemurClass"] = "-"
-        
+
         # if self.Patient["z_score_hanche_popup"] == True:
         #     self.context["Hanche"] = self.Patient["z_score_hache"]
         #     self.context["HancheClass"] = self.Classification(self.Patient["z_score_hache"])
         # else:
         #     self.context["Hanche"] = "-"
         #     self.context["HancheClass"] = "-"
-        
+
         # if self.Patient["z_score_rachis_popup"] == True:
         #     self.context["Rachis"] = self.Patient["z_score_rachis"]
         #     self.context["RachisClass"] = self.Classification(self.Patient["z_score_rachis"])
         # else:
         #     self.context["Rachis"] = "-"
         #     self.context["RachisClass"] = "-"
-        
+
         if self.Patient["z_score_extremite_distale"] == "Oui":
             self.radius = 1 if self.Patient["z_score_extremite_popup"] == True else 0
             self.context["Radius"] = self.radius
@@ -262,7 +266,7 @@ class DiagnoseAnalysis:
         else:
             self.context["Radius"] = "-"
             self.context["RadiusClass"] = "-"
-        
+
 
         ########### Diagnose Patient
         if self.DT[0] == True:
@@ -294,7 +298,7 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
 Un bilan diagnostique et pré-thérapeutique est indiqué par la réalisation d'une
 Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, Phosphatases alcalines, Electrophorèse des protides, Créatininémie, TSH, PTH et dosage de la 25OH Vitamine D
             """
-        
+
         # independent of the result True/False we want to add the situation
         if self.Patient["hyperparathyroide"] == "Oui":
             TScoreMin = DecisionTree.DecisionChoice.lowestZScore(self.Patient)
@@ -305,26 +309,26 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
                 LabelAdd = "un T score inferieur à -2.5: la densitométrie osseuse en faveur d'une ostéoporose."
             else:
                 LabelAdd = "un T score entre -1 et -2.5: la densitométrie osseuse en faveur d'une ostéopénie."
-            
+
             self.context["Hyperpa"] = """\nLe patient(e) est hyperparathyroïdique et a {}""".format(LabelAdd)
-        
+
         self.context["PathDiagnose"] = self.DT
 
-        
+
         # printing the traitement, these are the output of the Decision Tree
         All = ""
 
         for i in range(len(Traitements(self.Patient).ReturnListTraitments())):
             Traitment = "◦ "
             print(Traitements(self.Patient).ReturnListTraitments()[i])
-            
+
             Traitment += str(Traitements(self.Patient).ReturnListTraitments()[i]) + " "
             All += Traitment + "\n"
             self.context["Traitement"] = All
 
         if self.DT[0] == True and self.Patient["age"] >= 25:
             self.context["PhraseTraitement"] = "Durée proposée de la séquence thérapeutique "
-        
+
 
         ########### Traitement Patient
         self.context["AdviseGeneral"] = ""
@@ -345,13 +349,13 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
         if self.Patient["age"] <= 24:
             self.context["Advise = "] = self.context["Advise"] + "\n- Recherche de la dose de corticoïdes minimale efficace" + "\n- Assurer un état nutritionnel satisfaisant"
             self.context["Advise"] += "\n- Contrôle de la maladie causale" + "\n- Traiter un déficit hormonal"
-        
+
         #it's necessary for implementing the next for the printing, be careful because it's important the order
         if self.Patient["cancer_prostate"] == "Oui":
             typePatient = ""
             antecedent = ""
             EnterEvaluationMorphologi = True
-        
+
         if self.Patient["menopause"] == "Oui":
             typePatient +=  "chez la femme ménopausée, "
             antecedent = """
@@ -375,7 +379,7 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
 \t  l'aromatase) avec risque important de fracture vertébrale
             """
             EnterEvaluationMorphologi = True
-        
+
         LostOfHeight = -100
         PrintEvaluationMorphologique = False
         try:
@@ -392,28 +396,28 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
                 PrintEvaluationMorphologique = True
             if self.Patient["fracture_deux_vertebres"] == "Oui":
                 PrintEvaluationMorphologique = True
-        
+
         if EnterEvaluationMorphologi == True and PrintEvaluationMorphologique == True and self.Patient["age"] >= 25:
             self.context["Advise"] += f"""
 - Une évaluation morphologique à la recherche de fractures vertébrales par radiographies standards du rachis dorsolombaire est indiquée {typePatient} en cas de rachialgies ou si un des critères suivants est présent :
 \t+ perte de taille ≥ 4 cm (mesure de la taille comparée à la taille rapportée à l'âge de 20 ans)
 \t+ perte de taille prospective ≥ 2 cm, {antecedent}.
         """
-        
+
         if self.Patient["age"] >= 25:
             self.context["Advise"] += """
 - L'éviction des facteurs de risque de fractures et de chutes est nécessaire: sevrage des médicaments non indispensables (opiacés, hypnotiques...)
         """
-        
+
         else:
             self.context["AdviseGeneral"] = "Recommandations sur les mesures générales préventives:"
             pathDoc= "file:///" + str( Path(__file__).parent / "official/pnds_fragilites_osseuses_Pediatrique-27-09-2019.pdf")
             self.Review.add("\n" + self.ListOfReview[5])
 
             self.context["Advise"] += """
-- Bisphosphonates par voie IV (pamidronate ou zoledronate) indiqués si fragilité osseuse symptomatique selon définition (fracture vertébrale et/ou fractures des os longs cliniquement significatives et DMO mineur de -2 Z-score) ou si douleurs osseuses chroniques et DMO mineur de -2 Z-score 
+- Bisphosphonates par voie IV (pamidronate ou zoledronate) indiqués si fragilité osseuse symptomatique selon définition (fracture vertébrale et/ou fractures des os longs cliniquement significatives et DMO mineur de -2 Z-score) ou si douleurs osseuses chroniques et DMO mineur de -2 Z-score
 - La posologie et la durée du traitement est à discuter entre les médecins référents de la pathologie et les médecins experts de la santé osseuse
-- Bisphosphonates non indiqués si DMO basse isolée (sans fractures), à discuter au cas par cas dans des centres spécialisés 
+- Bisphosphonates non indiqués si DMO basse isolée (sans fractures), à discuter au cas par cas dans des centres spécialisés
             """
 
         if self.Patient["sexe"] == "Masculin" and self.Patient["age"] >= 25:
@@ -428,7 +432,7 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
             self.context["PossibleVitD"] = "- La concetration recommandée actuellement de 25 OH vitamine D est d'au moins 30 ng/mL (75nmol/L)."
             if self.Patient["cancer_prostate"] == "Oui":
                 self.context["PossibleVitD"] += " Un dosage annuel de la 25OH vitamine D est recommandé."
-        
+
         ## Change this to add the total calcium from calcium classes
         if self.Patient["apport_calcium"] == 500:
             CalciumEnough = 0
@@ -440,21 +444,21 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
             CalciumEnough = 0
         else:
             CalciumEnough = 1
-        
+
         if CalciumEnough == 0 and self.Patient["hyperparathyroide"] == "Oui":
             self.context["DiagnoseCalcium"] += "Apport alimentaire insuffisant en calcium mais il ne peux pas posible parce que il y a Hyperparathyroïde"
-        
+
         if self.Patient["menopause"] == "Oui":
             add = " chez les femmes ménopausées âgées de plus de 50 ans"
         else:
             add = ""
-        
+
         if self.Patient["age"] >= 25:
             self.context["DiagnoseCalcium"] += f"""
 - Les apports en calcium quotidiens recommandés doivent être d'au moins 1 gr à 1.2 gr{add}. En privilégiant les apports alimentaires.
 - Pour couvrir ces besoins, il faut consommer 4 produits laitiers par jour (yaourts, fromage frais, laits fermentés, fromages, lait...).
             """
-        
+
 
         ######### Sequence Therapeutique
         self.context["AdviseTrai"] = ""
@@ -469,16 +473,16 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
             if self.DT[0] == True:
                 self.textCancDuSein = """
 --- Cancer du sein ---
-- Une évaluation entre 2 et 3 ans doit être réalisée et la poursuite du traitement discutée en fonction des résultats obtenus à la fin de cette première séquence. 
-- La réalisation d'une mesure de la DMO est recommandée enfin de séquence thérapeutique. 
+- Une évaluation entre 2 et 3 ans doit être réalisée et la poursuite du traitement discutée en fonction des résultats obtenus à la fin de cette première séquence.
+- La réalisation d'une mesure de la DMO est recommandée enfin de séquence thérapeutique.
                 """
                 self.context["AdviseTrai"] += self.textCancDuSein
-            
+
             else:
                 if DecisionTree.DecisionChoice.lowestZScore(self.Patient) >= -1:
                     self.textCancDuSein = f"""Un contrôle densitométrique est indiqué dans 18 à 24 mois."""
                     self.context["Control"] += self.textCancDuSein
-            
+
         ########## Cancer du Prostate, and not pediatrique
         if self.Patient["cancer_prostate"] and self.Patient["age"] >= 25:
             self.context["AdviseGeneral"] = "\nMesures générales indiquées chez tous les patients ayant subi la castration dans le cancer de la prostate"
@@ -492,7 +496,7 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
 - La réalisation d'une mesure de la DMO est recommandée enfin de séquence thérapeutique.
                 """
                 self.context["AdviseTrai"] += self.textCancDuProstate
-            
+
             else:
                 self.textCancDuProstate = f"Un contrôle densitométrique est indiqué dans 12 à 24 mois."
                 self.context["Control"] += self.textCancDuProstate
@@ -505,15 +509,15 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
             if self.DT[0] == True:
                 self.textCorti = """
 --- Corticotherapie ---
-- L'expérience clinique de l'utilisation des traitements dans l'ostéoporose cortisonique est de deux ans pour les bisphosphonates et de 36 mois pour le Tériparatide (remboursement limité à une prescription de 18 mois et AMM limité à 24 mois) 
+- L'expérience clinique de l'utilisation des traitements dans l'ostéoporose cortisonique est de deux ans pour les bisphosphonates et de 36 mois pour le Tériparatide (remboursement limité à une prescription de 18 mois et AMM limité à 24 mois)
 - Ce sont les durées au terme desquelles se discute la poursuite ou l'arrêt du traitement en fonction du risque fracturaire résiduel.
-- La réalisation d'une mesure de la DMO est recommandée enfin de séquence thérapeutique. 
+- La réalisation d'une mesure de la DMO est recommandée enfin de séquence thérapeutique.
                 """
                 self.context["AdviseTrai"] += self.textCorti
             else:
                 self.textCorti = "Un contrôle densitométrique est indiqué dans 1 an"
                 self.context["Control"] += self.textCorti
-        
+
         ######### Man, and not pediatrique, and not orticotherapie, and not cancer du prostate
         if self.Patient["sexe"] == "Masculin" and self.Patient["age"] >= 25 and self.Patient["cancer_prostate"] == "Oui":
             self.context["AdviseGeneral"] = "\nMesures générales indiquées chez tous les patients masculine"
@@ -521,19 +525,19 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
                 self.textMan = f"""
 --- Homme ---
 - Un traitement d'une durée initiale de 3 ans est proposé avec une réévaluation du risque en fin de première séquence.
-- La réalisation d'une mesure de la DMO est recommandée enfin de séquence thérapeutique. 
+- La réalisation d'une mesure de la DMO est recommandée enfin de séquence thérapeutique.
                 """
                 self.context["AdviseTrai"] += self.textMan
-        
+
         ########### Woman, not pediatrique, not corticotherapie, not cancer du sein
         if self.Patient["sexe"] == "Feminin" and self.Patient["age"] >= 25 and self.Patient["corticotherapie"] == "Non" and self.Patient["cancer_sein"] == "Non":
             if self.Patient["menopause"] == "Oui":
                 self.context["AdviseGeneral"] = "\nMesures générales indiquées chez toutes les femmes ménopausées même s'il n y'a pas d'indication à un traitement spécifique"
             else:
                 self.context["AdviseGeneral"] = "\nMesures générales indiquées chez toutes les femmes NON ménopausées même s'il n y'a pas d'indication à un traitement spécifique"
-            
+
             if self.DT[0] == True: #treatment only because is woman
-            #first situation 
+            #first situation
                 self.textWomanMeno = f"""
 --- Woman menopause ---
 - Les traitements ont fait la preuve de leur efficacité anti-fracturaire dans des études contrôlées de 18 mois pour le tériparatide, de 3 ans pour l'acide zolédronique et le dénosumab et de 5 ans pour les autres traitements.
@@ -541,9 +545,9 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
 - Une mesure de la DMO peut être réalisée dans les 2 à 3 ans après le début du traitement et à chaque fois qu'est envisagée une modification du traitement
                 """
                 self.context["AdviseTrai"] += self.textWomanMeno
-        
+
         self.context["ListOfReview"] = self.Review
-        
+
 
     def Classification(self, TValue):
         """
@@ -571,7 +575,7 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
                 return "Ostéopénie"
             else:
                 return "Densité osseuse normale"
-            
+
     def setTreatmentContext(self):
         """
         Définit le contexte des traitements et facteurs de risque
@@ -626,12 +630,12 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
             self.TreatmentContext["recommendations"]["spécifiques"].append(
                 "Évaluation du risque de chute et aménagement du domicile"
             )
-        
+
         if self.Patient["fracture_severe"] == "Oui":
             self.TreatmentContext["recommendations"]["spécifiques"].append(
                 "Traitement anti-ostéoporotique de première intention"
             )
-            
+
     def check_missing_data(self):
         """
         Vérifie les données manquantes et retourne un diagnostic partiel si nécessaire
@@ -641,11 +645,11 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
             "age", "sexe", "imc", "t_score", "z_score",
             "fracture_severe", "menopause", "corticotherapie"
         ]
-        
+
         for field in required_fields:
             if field not in self.Patient or self.Patient[field] is None:
                 missing_data.append(field)
-        
+
         return missing_data
 
     def generate_diagnosis_data(self):
@@ -662,7 +666,7 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
             "recommendations": self.TreatmentContext["recommendations"],
             "missing_data": missing_data
         }
-        
+
         # Détermination du diagnostic final
         if missing_data:
             diagnosis_data["final_diagnosis"] = "Diagnostic partiel - Données manquantes"
@@ -670,7 +674,7 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
             diagnosis_data["final_diagnosis"] = self.Classification(
                 self.Patient.get("t_score", 0)
             )
-        
+
         return diagnosis_data
 
     def generate_report(self, output_path):
@@ -678,10 +682,10 @@ Numération Formule Sanguine, VS, CRP, Calcémie, Albuminémie, Phosphorémie, P
         Génère un rapport PDF complet
         """
         from .ReportGenerator import ReportGenerator
-        
+
         diagnosis_data = self.generate_diagnosis_data()
         report_generator = ReportGenerator(self.Patient, diagnosis_data)
         report_generator.generate_report(output_path)
-        
+
         return diagnosis_data
-            
+

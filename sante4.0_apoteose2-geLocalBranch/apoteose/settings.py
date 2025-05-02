@@ -121,3 +121,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TEMPLATED_DOCS_LIBREOFFICE_PATH = '/usr/share/libreoffice/program'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEBUG= True

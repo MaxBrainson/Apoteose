@@ -87,13 +87,13 @@ def render_to_pdf(template_src, context_dict={}):
         return None
 
 
-def download_pdf(template_src, context_dict={}):
-    pdf = render_to_pdf(template_src, context_dict)
-    response = HttpResponse(pdf, content_type='application/pdf')
-    filename = "Diagnostic%s.pdf" %("")
-    content = "attachment; filename=%s" %(filename)
-    response['Content-Disposition'] = content
-    return response
+#def download_pdf(template_src, context_dict={}):
+ #   pdf = render_to_pdf(template_src, context_dict)
+  #  response = HttpResponse(pdf, content_type='application/pdf')
+   # filename = "Diagnostic%s.pdf" %("")
+   # content = "attachment; filename=%s" %(filename)
+    #response['Content-Disposition'] = content
+    #return response
 
 
 def createNewModelsFields(patientData):
@@ -129,8 +129,24 @@ def get_diagnosis(request):
     """
     if request.method == 'POST':
         try:
-            # Récupération et validation des données
-            patient_data = request.POST.dict()
+            
+            # Convertir les champs numériques
+            patient_data = request.POST.copy()  # Crée une copie mutable
+            
+            # Liste des champs qui doivent être convertis en float/int
+            numeric_fields = [
+                'age', 'taille', 'poids', 'imc', 
+                'z_score_rachis', 'z_score_col_femur', 'z_score_hache',
+                't_score_rachis', 't_score_col_femur', 't_score_hache'
+            ]
+            
+            for field in numeric_fields:
+                if field in patient_data and patient_data[field]:
+                    try:
+                        patient_data[field] = float(patient_data[field])
+                    except (ValueError, TypeError):
+                        patient_data[field] = None  
+           
             print("Données reçues:", patient_data)
             
             # Vérification des données requises
@@ -141,6 +157,7 @@ def get_diagnosis(request):
                 return JsonResponse({
                     'error': f'Données manquantes: {", ".join(missing_data)}'
                 }, status=400)
+            
             
             # Génération du diagnostic
             diagnosis = DiagnoseAnalysis(patient_data)
@@ -190,7 +207,7 @@ def get_diagnosis(request):
             }
             
             # Génération du PDF
-            pdf = render_to_pdf('core/templates/pdfReport.html', pdf_context)
+            pdf = render_to_pdf('../../core/templates/pdfReport.html', pdf_context)
             
             if pdf:
                 with open(report_path, 'wb') as f:
