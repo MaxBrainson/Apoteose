@@ -326,12 +326,12 @@ class DecisionTree(object):
     def lowestZScore(self, Patient):
         self.min = 1000
 
-        if Patient["z_score_femur_popup"] == True or float(Patient["z_score_col_femur"]) < self.min:
-            self.min = Patient["z_score_col_femur"]
-        if Patient["z_score_hanche_popup"] == True or float(Patient["z_score_hache"]) < self.min:
-            self.min = Patient["z_score_hache"]
-        if Patient["z_score_rachis_popup"] == True or float(Patient["z_score_rachis"]) < self.min:
-            self.min = Patient["z_score_rachis"]
+     #   if Patient["z_score_femur_popup"] == True or float(Patient["z_score_col_femur"]) < self.min:
+      #      self.min = Patient["z_score_col_femur"]
+       # if Patient["z_score_hanche_popup"] == True or float(Patient["z_score_hache"]) < self.min:
+       #     self.min = Patient["z_score_hache"]
+        #if Patient["z_score_rachis_popup"] == True or float(Patient["z_score_rachis"]) < self.min:
+         #   self.min = Patient["z_score_rachis"]
         # if Patient["z_score_extremite_popup"] == True or Patient["z_score_extremite_distale"] < self.min:
         #     self.min = Patient["z_score_extremite_distale"]
 

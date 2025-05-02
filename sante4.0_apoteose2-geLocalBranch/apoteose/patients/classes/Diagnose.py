@@ -123,7 +123,7 @@ class DiagnoseAnalysis:
             "HancheClass": self.Classification(self.Patient["z_score_hache"]),
             "Ranchis": self.Patient["z_score_rachis"],
             "RanchisClass": self.Classification(self.Patient["z_score_rachis"]),
-            "Radius": 1 if self.Patient["z_score_extremite_popup"] == True else 0,
+           # "Radius": 1 if self.Patient["z_score_extremite_popup"] == True else 0,
         }
 
         ########### FirstSection, description patient
@@ -260,7 +260,7 @@ class DiagnoseAnalysis:
         #     self.context["RachisClass"] = "-"
 
         if self.Patient["z_score_extremite_distale"] == "Oui":
-            self.radius = 1 if self.Patient["z_score_extremite_popup"] == True else 0
+            self.radius = 1 #if self.Patient["z_score_extremite_popup"] == True else 0
             self.context["Radius"] = self.radius
             self.context["RadiusClass"] = self.Classification(self.radius)
         else:
