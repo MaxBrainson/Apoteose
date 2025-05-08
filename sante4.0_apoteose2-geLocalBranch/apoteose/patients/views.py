@@ -137,7 +137,7 @@ def get_diagnosis(request):
             numeric_fields = [
                 'age', 'taille', 'poids', 'imc', 
                 'z_score_rachis', 'z_score_col_femur', 'z_score_hache',
-                't_score_rachis', 't_score_col_femur', 't_score_hache'
+                't_score_rachis', 't_score_col_femur', 't_score_hache', 'taille_20'
             ]
             
             for field in numeric_fields:
@@ -161,7 +161,7 @@ def get_diagnosis(request):
             
             # Génération du diagnostic
             diagnosis = DiagnoseAnalysis(patient_data)
-            diagnosis_data = diagnosis.generate_diagnosis_data()
+            diagnosis_data = diagnosis.context
             print("Données du diagnostic générées:", diagnosis_data)
             
             # Création du répertoire reports s'il n'existe pas
