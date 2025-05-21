@@ -137,7 +137,7 @@ def get_diagnosis(request):
             numeric_fields = [
                 'age', 'taille', 'poids', 'imc', 
                 'z_score_rachis', 'z_score_col_femur', 'z_score_hache',
-                't_score_rachis', 't_score_col_femur', 't_score_hache', 'taille_20'
+                't_score_rachis', 't_score_col_femur', 't_score_hache', 'taille_20', 'frax'
             ]
             
             for field in numeric_fields:
@@ -193,6 +193,10 @@ def get_diagnosis(request):
                 'z_score_col_femur': diagnosis_data.get('z_score_col_femur', ''),
                 'z_score_hache': diagnosis_data.get('z_score_hache', ''),
                 'z_score_extremite_distale': diagnosis_data.get('z_score_extremite_distale', ''),
+                't_score_rachis': diagnosis_data.get('z_score_rachis', ''),
+                't_score_col_femur': diagnosis_data.get('z_score_col_femur', ''),
+                't_score_hache': diagnosis_data.get('z_score_hache', ''),
+                't_score_extremite_distale': diagnosis_data.get('z_score_extremite_distale', ''),
                 'RachisClass': diagnosis_data.get('RachisClass', ''),
                 'FemurClass': diagnosis_data.get('FemurClass', ''),
                 'HancheClass': diagnosis_data.get('HancheClass', ''),
